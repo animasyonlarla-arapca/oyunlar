@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Aslan ile Fare · Eşleştirme Oyunu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Baloo+2:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EAF2FB; --surface:#FFFFFF; --ink:#0B1030; --text:#1B2347; --muted:#56608A;
+  --navy:#1F2A5A; --gold:#F2B04A; --turq:#26C6DA; --coral:#FF5A5F; --kasra:#FFD54F; --lilac:#D7B8F3;
+  --ok:#1FA37A; --okbg:#DDF6EE; --badbg:#FFE4E5; --sel:#FFF3D6; --edge:#0B1030; --shadow:#0B1030;
+  --radius:18px;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#121838; --surface:#1F2A5A; --text:#F2F4FF; --muted:#AEB6DE; --okbg:#153F40; --badbg:#4A2032; --sel:#3E3A2A; --edge:#05081C; --shadow:#05081C;
+  }
+}
+:root[data-theme="dark"]{--bg:#121838; --surface:#1F2A5A; --text:#F2F4FF; --muted:#AEB6DE; --okbg:#153F40; --badbg:#4A2032; --sel:#3E3A2A; --edge:#05081C; --shadow:#05081C;}
+*,*::before,*::after{box-sizing:inherit}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:"Baloo 2",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:17px;line-height:1.35;-webkit-tap-highlight-color:transparent}
+.ar{font-family:"Amiri","Traditional Arabic","Geeza Pro",serif;font-weight:700;direction:rtl;unicode-bidi:isolate}
+button{font:inherit;color:inherit}
+.wrap{max-width:560px;margin:0 auto;padding:16px 16px 28px}
+.screen[hidden]{display:none}
+
+/* ---------- start screen ---------- */
+.hero{position:relative;background:var(--navy);color:#fff;border:3px solid var(--edge);border-radius:26px;padding:26px 20px 22px;box-shadow:0 7px 0 var(--shadow);overflow:hidden;text-align:center}
+.hero h1{margin:0;font-size:clamp(46px,13vw,64px);line-height:1.5;color:var(--gold)}
+.hero .tr{margin:0;font-size:24px;font-weight:800;letter-spacing:.2px}
+.hero .by{margin:10px 0 0;font-size:15px;color:#C9D2FF}
+.hero svg.float{position:absolute;opacity:.9;pointer-events:none}
+.modes{display:grid;gap:14px;margin-top:22px}
+.mode{display:grid;grid-template-columns:54px 1fr auto;align-items:center;gap:14px;width:100%;text-align:left;background:var(--surface);border:3px solid var(--edge);border-radius:var(--radius);padding:14px 16px;box-shadow:0 5px 0 var(--shadow);cursor:pointer;transition:transform .08s}
+.mode:active{transform:translateY(3px);box-shadow:0 2px 0 var(--shadow)}
+.mode:focus-visible,.card:focus-visible,.btn:focus-visible,.opt:focus-visible,.icon:focus-visible{outline:4px solid var(--turq);outline-offset:3px}
+.mode .ic{width:54px;height:54px;border-radius:14px;display:grid;place-items:center;border:3px solid var(--edge)}
+.mode b{display:block;font-size:19px;line-height:1.2}
+.mode span.d{display:block;font-size:14.5px;color:var(--muted)}
+.best{font-size:18px;letter-spacing:1px;color:var(--gold);white-space:nowrap}
+.foot{margin-top:18px;text-align:center;font-size:14.5px;color:var(--muted)}
+.foot a{color:inherit}
+
+/* ---------- game header ---------- */
+.bar{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.icon{width:44px;height:44px;border-radius:14px;border:3px solid var(--edge);background:var(--surface);display:grid;place-items:center;cursor:pointer;box-shadow:0 3px 0 var(--shadow);flex:0 0 auto}
+.bar h2{margin:0;font-size:21px;flex:1;line-height:1.1}
+.bar h2 small{display:block;font-size:14px;color:var(--muted);font-weight:500}
+.stat{font-weight:800;font-size:17px;background:var(--surface);border:3px solid var(--edge);border-radius:12px;padding:3px 10px;box-shadow:0 3px 0 var(--shadow);min-width:62px;text-align:center}
+.progress{display:flex;gap:6px;margin:4px 0 14px}
+.progress i{flex:1;height:10px;border-radius:6px;background:var(--surface);border:2px solid var(--edge)}
+.progress i.on:nth-child(4n+1){background:var(--coral)}.progress i.on:nth-child(4n+2){background:var(--turq)}
+.progress i.on:nth-child(4n+3){background:var(--kasra)}.progress i.on:nth-child(4n+4){background:var(--lilac)}
+.hint{min-height:24px;margin:0 0 12px;font-size:15.5px;color:var(--muted);text-align:center}
+
+/* ---------- matching board ---------- */
+.board{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.col{display:grid;gap:12px;align-content:start}
+.card{position:relative;min-height:74px;width:100%;padding:10px 12px;background:var(--surface);border:3px solid var(--edge);border-radius:var(--radius);box-shadow:0 4px 0 var(--shadow);cursor:pointer;display:flex;align-items:center;justify-content:center;text-align:center;transition:transform .1s,background-color .15s}
+.card.tr{font-size:16.5px;font-weight:600;line-height:1.25}
+.card.arc{font-size:clamp(22px,6.2vw,28px);line-height:1.7}
+.card[aria-pressed="true"]{background:var(--sel);transform:translateY(-3px);box-shadow:0 7px 0 var(--gold);border-color:var(--gold)}
+.card.done{background:var(--okbg);border-color:var(--ok);box-shadow:0 2px 0 var(--ok);cursor:default;opacity:.75}
+.card.done::after{content:"✓";position:absolute;top:4px;right:9px;font-size:16px;font-weight:800;color:var(--ok);font-family:"Baloo 2",sans-serif}
+.card.bad{background:var(--badbg);border-color:var(--coral);animation:shake .35s}
+@keyframes shake{20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+
+/* ---------- choose mode ---------- */
+.qcard{background:var(--navy);color:#fff;border:3px solid var(--edge);border-radius:22px;padding:22px 16px;box-shadow:0 6px 0 var(--shadow);text-align:center;font-size:clamp(26px,7.5vw,34px);line-height:1.8;margin-bottom:16px}
+.opts{display:grid;gap:12px}
+.opt{width:100%;text-align:left;background:var(--surface);border:3px solid var(--edge);border-radius:var(--radius);padding:14px 16px;box-shadow:0 4px 0 var(--shadow);cursor:pointer;font-size:17.5px;font-weight:600}
+.opt.right{background:var(--okbg);border-color:var(--ok)}
+.opt.wrong{background:var(--badbg);border-color:var(--coral);animation:shake .35s}
+.opt[disabled]{cursor:default}
+.explain{margin-top:14px;padding:12px 14px;border:3px dashed var(--turq);border-radius:16px;background:var(--surface);font-size:15.5px}
+.explain[hidden]{display:none}
+.explain b{color:var(--turq)}
+
+/* ---------- buttons & result ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:3px solid var(--edge);border-radius:16px;padding:11px 18px;font-weight:800;font-size:17px;cursor:pointer;box-shadow:0 4px 0 var(--shadow);text-decoration:none;color:var(--ink)}
+.btn.gold{background:var(--gold)}.btn.turq{background:var(--turq)}.btn.plain{background:var(--surface);color:var(--text)}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--shadow)}
+.next{margin-top:14px;width:100%}
+.result{text-align:center;background:var(--surface);border:3px solid var(--edge);border-radius:26px;padding:26px 18px;box-shadow:0 6px 0 var(--shadow)}
+.stars{font-size:54px;letter-spacing:6px;line-height:1.1;margin:6px 0 10px}
+.stars .off{opacity:.2}
+.result h2{margin:0 0 6px;font-size:26px}
+.result p{margin:4px 0;color:var(--muted)}
+.actions{display:grid;gap:10px;margin-top:18px}
+
+
+/* ---------- flashcards ---------- */
+.boxes{display:flex;gap:6px;margin:4px 0 14px;justify-content:center;flex-wrap:wrap}
+.boxes span{font-size:14px;font-weight:700;padding:3px 10px;border-radius:999px;border:2px solid var(--edge);background:var(--surface)}
+.boxes span.b0{background:var(--surface)}.boxes span.b1{background:#FFE4E5;color:#0B1030}.boxes span.b2{background:#FFF3C4;color:#0B1030}.boxes span.b3{background:#D8F6FA;color:#0B1030}.boxes span.b4{background:#E6DAF7;color:#0B1030}.boxes span.b5{background:#DDF6EE;color:#0B1030}
+.fc{min-height:230px;background:var(--surface);border:3px solid var(--edge);border-radius:24px;box-shadow:0 6px 0 var(--shadow);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:22px 16px;cursor:pointer;user-select:none}
+.fc.back{background:var(--okbg)}
+.fc-ar{font-size:clamp(30px,9vw,42px);line-height:1.8;color:var(--text)}
+.fc-sub{font-size:clamp(22px,6vw,28px);color:#4A5A8C;line-height:1.6}
+.fc-sub:empty{display:none}
+.fc-star{color:#D4A017;font-weight:800;font-size:15px;min-height:18px}
+.fc-root{margin-top:6px;font-size:15px;color:var(--muted)}.fc-root .ar{font-size:22px;color:#8E44AD}
+.fc-hint{margin-top:14px;font-size:14.5px;color:var(--muted)}
+.fc-tr{font-size:26px;font-weight:800;color:var(--text)}
+.fc-note{margin-top:8px;font-size:15.5px;color:var(--muted)}
+.judge{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.judge[hidden]{display:none}
+.done{margin-top:16px;text-align:center}
+
+
+/* ---------- word list ---------- */
+.wl{display:grid;gap:10px}
+.wl-row{display:grid;grid-template-columns:40px 1fr;gap:10px;align-items:stretch;width:100%;text-align:left;background:var(--surface);border:3px solid var(--edge);border-radius:16px;box-shadow:0 3px 0 var(--shadow);padding:8px 12px;cursor:pointer}
+.wl-row.star{background:#FFF8E1}
+:root[data-theme="dark"] .wl-row.star{background:#3E3A2A}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .wl-row.star{background:#3E3A2A}}
+.wl-num{display:grid;place-items:center;border-radius:10px;background:#8E44AD;color:#fff;font-weight:800;font-size:16px}
+.wl-num.st::after{content:"★";font-size:12px;color:#FFD54F;margin-left:2px}
+.wl-ar{font-size:clamp(22px,6.5vw,28px);line-height:1.7;text-align:right}
+.wl-sub{font-size:clamp(18px,5vw,22px);line-height:1.5;text-align:right;color:#4A5A8C}
+.wl-root{font-size:13.5px;color:var(--muted);text-align:right}.wl-root .ar{color:#8E44AD;font-size:18px}
+.wl-tr{margin-top:4px;padding-top:6px;border-top:2px dashed var(--turq);font-weight:700;font-size:17px}
+.wl-tr small{display:block;font-weight:500;font-size:14px;color:var(--muted)}
+.wl-tr[hidden]{display:none}
+.wl-tools{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 14px}
+
+/* ---------- burst ---------- */
+.burst{position:fixed;left:0;top:0;width:0;height:0;pointer-events:none;z-index:50}
+.burst svg{position:absolute;left:-14px;top:-14px;animation:fly .8s cubic-bezier(.2,.7,.3,1) forwards}
+@keyframes fly{0%{transform:translate(0,0) rotate(0) scale(.6);opacity:1}100%{transform:translate(var(--dx),var(--dy)) rotate(var(--r)) scale(1);opacity:0}}
+@media (prefers-reduced-motion:reduce){.card,.mode,.btn{transition:none}.card.bad,.opt.wrong{animation:none}.burst{display:none}}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- START -->
+<section class="screen" id="start">
+  <div class="hero">
+    <svg class="float" width="70" height="40" style="left:14px;top:18px" viewBox="0 0 70 40" aria-hidden="true"><rect x="6" y="12" width="56" height="16" rx="8" fill="#FF5A5F" stroke="#0B1030" stroke-width="3" transform="rotate(-20 34 20)"/></svg>
+    <svg class="float" width="46" height="56" style="right:16px;top:14px" viewBox="0 0 46 56" aria-hidden="true"><path d="M26 22 Q25 40 8 48" stroke="#0B1030" stroke-width="14" fill="none" stroke-linecap="round"/><path d="M26 22 Q25 40 8 48" stroke="#26C6DA" stroke-width="8" fill="none" stroke-linecap="round"/><circle cx="24" cy="14" r="10" fill="none" stroke="#0B1030" stroke-width="13"/><circle cx="24" cy="14" r="10" fill="none" stroke="#26C6DA" stroke-width="7"/></svg>
+    <svg class="float" width="60" height="36" style="right:26px;bottom:14px" viewBox="0 0 60 36" aria-hidden="true"><rect x="6" y="10" width="46" height="14" rx="7" fill="#FFD54F" stroke="#0B1030" stroke-width="3" transform="rotate(-20 30 17)"/></svg>
+    <h1 class="ar">الْأَسَدُ وَالْفَأْرُ</h1>
+    <p class="tr">Aslan ile Fare · Eşleştirme</p>
+    <p class="by">Animasyonlarla Arapça</p>
+  </div>
+  <div class="modes" id="modes"></div>
+  <p class="foot">Hikâyeyi önce izlemek ister misiniz? <a href="https://youtu.be/0qJkvR0X2bs" target="_blank" rel="noopener">Videoyu aç</a></p>
+</section>
+
+<!-- MATCH -->
+<section class="screen" id="match" hidden>
+  <div class="bar">
+    <button class="icon" id="backM" aria-label="Ana menüye dön"><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M13 3 L6 10 L13 17" stroke="currentColor" stroke-width="3.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <h2 id="mTitle">Kalıplar<small>Arapçayı Türkçesiyle eşleştir</small></h2>
+    <span class="stat" id="mTime" aria-label="Süre">0:00</span>
+  </div>
+  <div class="progress" id="mProg" aria-hidden="true"></div>
+  <p class="hint" id="mHint" aria-live="polite">Bir karta, sonra karşılığına dokun.</p>
+  <div class="board">
+    <div class="col" id="colTr" aria-label="Türkçe karşılıklar"></div>
+    <div class="col" id="colAr" aria-label="Arapça ifadeler"></div>
+  </div>
+</section>
+
+<!-- CHOOSE -->
+<section class="screen" id="choose" hidden>
+  <div class="bar">
+    <button class="icon" id="backC" aria-label="Ana menüye dön"><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M13 3 L6 10 L13 17" stroke="currentColor" stroke-width="3.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <h2>Doğru çeviriyi seç<small id="cCount">1 / 5</small></h2>
+    <span class="stat" id="cScore" aria-label="Doğru sayısı">0 ✓</span>
+  </div>
+  <div class="progress" id="cProg" aria-hidden="true"></div>
+  <div class="qcard ar" id="cQ"></div>
+  <div class="opts" id="cOpts"></div>
+  <div class="explain" id="cExp" hidden aria-live="polite"></div>
+  <button class="btn gold next" id="cNext" hidden>Sonraki cümle</button>
+</section>
+
+
+<!-- CARDS -->
+<section class="screen" id="cards" hidden>
+  <div class="bar">
+    <button class="icon" id="backK" aria-label="Ana menüye dön"><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M13 3 L6 10 L13 17" stroke="currentColor" stroke-width="3.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <h2 id="kTitle">Kelime kartları<small>Ezber hedefi</small></h2>
+    <span class="stat" id="kLeft" aria-label="Kalan kart">0</span>
+  </div>
+  <div class="boxes" id="kBoxes" aria-label="Kutulardaki kart sayıları"></div>
+  <div id="kPlay">
+    <div class="fc" id="kCard" role="button" tabindex="0" aria-live="polite">
+      <div id="kFront"><div class="fc-star" id="kStar"></div><div class="ar fc-ar" id="kAr" lang="ar"></div><div class="ar fc-sub" id="kSub" lang="ar"></div><div class="fc-root"><span id="kSubLabel"></span>kök: <span class="ar" id="kRoot" lang="ar"></span></div><div class="fc-hint">Türkçesini aklından söyle, sonra kartı çevir.</div></div>
+      <div id="kBack" hidden><div class="fc-tr" id="kTr"></div><div class="fc-note" id="kNote"></div></div>
+    </div>
+    <button class="btn gold next" id="kFlip">Kartı çevir</button>
+    <div class="judge" id="kJudge" hidden><button class="btn plain" id="kAgain">Bilemedim</button><button class="btn turq" id="kKnew">Bildim</button></div>
+  </div>
+  <div class="done" id="kDone" hidden>
+    <div class="result"><h2 id="kDoneTitle">Bugünlük bitti!</h2><p id="kDoneLine1"></p><p id="kDoneLine2"></p>
+      <div class="actions"><button class="btn plain" id="kMenu">Ana menü</button><button class="btn plain" id="kReset">Kartları sıfırla</button></div></div>
+  </div>
+</section>
+
+
+<!-- LIST -->
+<section class="screen" id="list" hidden>
+  <div class="bar">
+    <button class="icon" id="backL" aria-label="Ana menüye dön"><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M13 3 L6 10 L13 17" stroke="currentColor" stroke-width="3.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <h2>Kelime listesi<small>Önce hatırla, sonra dokunup kontrol et</small></h2>
+  </div>
+  <div class="wl-tools"><button class="btn plain" id="lAll">Tümünü göster</button><button class="btn turq" id="lCards">Kartlarla çalış</button></div>
+  <div class="wl" id="lBox"></div>
+</section>
+
+<!-- RESULT -->
+<section class="screen" id="result" hidden>
+  <div class="result">
+    <div class="stars" id="rStars" aria-hidden="true"></div>
+    <h2 id="rTitle">Tebrikler!</h2>
+    <p id="rLine1"></p>
+    <p id="rLine2"></p>
+    <div class="actions">
+      <button class="btn gold" id="rAgain">Tekrar oyna</button>
+      <button class="btn plain" id="rMenu">Başka bir tur seç</button>
+      <a class="btn turq" href="https://youtu.be/0qJkvR0X2bs" target="_blank" rel="noopener">Videoyu izle</a>
+    </div>
+  </div>
+</section>
+
+<p class="sr" id="live" aria-live="assertive"></p>
+</div>
+
+<script>
+(function(){
+"use strict";
+/* ----- content: only words and patterns from the unit text ----- */
+const PATTERNS=[
+  ["نَامَ تَحْتَ شَجَرَةٍ","bir ağacın altında uyudu"],
+  ["اِسْتَيْقَظَ غَاضِبًا","öfkeyle uyandı"],
+  ["أَمْسَكَهُ بِيَدِهِ","onu eliyle yakaladı"],
+  ["اُتْرُكْنِي","bırak beni"],
+  ["سَأُسَاعِدُكَ","sana yardım edeceğim"],
+  ["وَقَعَ فِي شَبَكَةٍ","bir ağa düştü"],
+  ["حَاوَلَ أَنْ يَخْرُجَ","çıkmaya çalıştı"],
+  ["فَلَمْ يَسْتَطِعْ","ama başaramadı"],
+  ["زَأَرَ بِصَوْتٍ عَالٍ","yüksek sesle kükredi"],
+  ["أَسْرَعَ إِلَى الْأَسَدِ","aslanın yanına koştu"],
+  ["عَرَفَ أَنَّ","…-dığını anladı"],
+  ["قَدْ يَنْفَعُ","fayda sağlayabilir"]
+];
+const SENTENCES=[
+  ["نَامَ أَسَدٌ كَبِيرٌ.","Büyük bir aslan uyudu."],
+  ["جَاءَ فَأْرٌ صَغِيرٌ.","Küçük bir fare geldi."],
+  ["ضَحِكَ الْأَسَدُ.","Aslan güldü."],
+  ["ثُمَّ تَرَكَهُ.","Sonra onu bıraktı."],
+  ["زَأَرَ الْأَسَدُ.","Aslan kükredi."],
+  ["سَمِعَ الْفَأْرُ الصَّوْتَ.","Fare sesi duydu."],
+  ["خَرَجَ الْأَسَدُ مِنَ الشَّبَكَةِ.","Aslan ağdan çıktı."],
+  ["شَكَرَ الْأَسَدُ الْفَأْرَ.","Aslan fareye teşekkür etti."]
+];
+const CHOICES=[
+  {ar:"اِسْتَيْقَظَ الْأَسَدُ غَاضِبًا.",ok:"Aslan öfkeyle uyandı.",no:"Uyandı aslan kızgın.",tip:"<b>Hâl → zarf.</b> غَاضِبًا bir sıfat değil hâldir; Türkçede “öfkeyle” olur. Fiil de cümlenin sonuna gider."},
+  {ar:"ثُمَّ تَرَكَهُ.",ok:"Sonra onu bıraktı.",no:"Sonra bıraktı o onu.",tip:"<b>Gizli özne.</b> Fâil fiilin içindedir; Türkçede ayrıca “o” yazılmaz, kişi eki yeter."},
+  {ar:"سَمِعَ الْفَأْرُ الصَّوْتَ فَأَسْرَعَ.",ok:"Fare sesi duyup hemen koştu.",no:"Duydu fare sesi ve hızlandı.",tip:"<b>فَ bağlacı.</b> Hızlı bir ardışıklık anlatır: “-ıp hemen”. Fiiller de sona taşınır."},
+  {ar:"حَاوَلَ أَنْ يَخْرُجَ فَلَمْ يَسْتَطِعْ.",ok:"Çıkmaya çalıştı ama başaramadı.",no:"Denedi ki çıksın, yapamadı.",tip:"<b>أَنْ + muzâri → “-meye”.</b> لَمْ + muzâri ise olumsuz geçmiştir: “başaramadı”."},
+  {ar:"عَرَفَ أَنَّ الصَّغِيرَ قَدْ يَنْفَعُ الْكَبِيرَ.",ok:"Küçüklerin de büyüklere faydası dokunabileceğini anladı.",no:"Bildi ki küçük bazen fayda verir büyüğü.",tip:"<b>“-ki” değil, isim-fiil.</b> أَنَّ cümlesi “-dığını / -abileceğini” ile nesneye dönüşür; قَدْ + muzâri ihtimal bildirir."}
+];
+const WITEMS=[{"ar": "شَجَرَةٌ", "sub": "", "root": "ش ج ر", "tr": "ağaç", "note": "", "star": false}, {"ar": "غَابَةٌ", "sub": "", "root": "غ ي ب", "tr": "orman", "note": "", "star": false}, {"ar": "اِسْتَيْقَظَ", "sub": "يَسْتَيْقِظُ", "root": "ي ق ظ", "tr": "uyandı", "note": "", "star": true}, {"ar": "غَاضِبٌ", "sub": "", "root": "غ ض ب", "tr": "öfkeli", "note": "metinde hâl: غَاضِبًا → öfkeyle", "star": true}, {"ar": "أَمْسَكَ", "sub": "يُمْسِكُ", "root": "م س ك", "tr": "tuttu, yakaladı", "note": "", "star": true}, {"ar": "تَرَكَ", "sub": "يَتْرُكُ", "root": "ت ر ك", "tr": "bıraktı", "note": "", "star": false}, {"ar": "مَلِكٌ", "sub": "", "root": "م ل ك", "tr": "kral", "note": "", "star": false}, {"ar": "سَاعَدَ", "sub": "يُسَاعِدُ", "root": "س ع د", "tr": "yardım etti", "note": "", "star": false}, {"ar": "رَجَعَ إِلَى", "sub": "يَرْجِعُ", "root": "ر ج ع", "tr": "…-e döndü", "note": "", "star": true}, {"ar": "فَرِحٌ", "sub": "", "root": "ف ر ح", "tr": "sevinçli", "note": "ferah değil!", "star": false}, {"ar": "يَوْمٌ / أَيَّامٌ", "sub": "", "root": "ي و م", "tr": "gün / günler", "note": "kırık çoğul", "star": false}, {"ar": "وَقَعَ فِي", "sub": "يَقَعُ", "root": "و ق ع", "tr": "…-e düştü", "note": "", "star": true}, {"ar": "شَبَكَةٌ", "sub": "", "root": "ش ب ك", "tr": "ağ", "note": "şebeke değil!", "star": true}, {"ar": "صَيَّادٌ", "sub": "", "root": "ص ي د", "tr": "avcı", "note": "faʿʿâl: meslek", "star": true}, {"ar": "حَاوَلَ أَنْ", "sub": "يُحَاوِلُ", "root": "ح و ل", "tr": "…-meye çalıştı", "note": "", "star": true}, {"ar": "اِسْتَطَاعَ", "sub": "يَسْتَطِيعُ", "root": "ط و ع", "tr": "başardı, -ebildi", "note": "لَمْ يَسْتَطِعْ → başaramadı", "star": true}, {"ar": "زَأَرَ", "sub": "يَزْأَرُ", "root": "ز أ ر", "tr": "kükredi", "note": "", "star": false}, {"ar": "أَسْرَعَ إِلَى", "sub": "يُسْرِعُ", "root": "س ر ع", "tr": "…-e koştu", "note": "", "star": true}, {"ar": "حَبْلٌ / حِبَالٌ", "sub": "", "root": "ح ب ل", "tr": "ip / ipler", "note": "kırık çoğul", "star": false}, {"ar": "سِنٌّ / أَسْنَانٌ", "sub": "", "root": "س ن ن", "tr": "diş / dişler", "note": "kırık çoğul", "star": false}, {"ar": "حَادٌّ", "sub": "", "root": "ح د د", "tr": "keskin", "note": "", "star": false}, {"ar": "خَرَجَ مِنْ", "sub": "يَخْرُجُ", "root": "خ ر ج", "tr": "…-den çıktı", "note": "", "star": false}, {"ar": "عَرَفَ", "sub": "يَعْرِفُ", "root": "ع ر ف", "tr": "bildi, anladı", "note": "", "star": false}, {"ar": "نَفَعَ", "sub": "يَنْفَعُ", "root": "ن ف ع", "tr": "fayda verdi", "note": "", "star": false}];
+const KITEMS=[{"ar": "نَامَ تَحْتَ شَجَرَةٍ", "sub": "فَعَلَ", "subLabel": "vezin", "root": "ن و م", "tr": "bir ağacın altında uyudu", "note": "", "star": false}, {"ar": "لَعِبَ فَوْقَ ظَهْرِ ...", "sub": "فَعِلَ", "subLabel": "vezin", "root": "ل ع ب", "tr": "...-in sırtında oynadı", "note": "", "star": false}, {"ar": "اِسْتَيْقَظَ غَاضِبًا", "sub": "اِسْتَفْعَلَ", "subLabel": "vezin", "root": "ي ق ظ", "tr": "öfkeyle uyandı", "note": "hâl → “-le / -arak”", "star": false}, {"ar": "أَمْسَكَ ... بِيَدِهِ", "sub": "أَفْعَلَ", "subLabel": "vezin", "root": "م س ك", "tr": "...-i eliyle yakaladı", "note": "hayvan için: “pençesiyle”", "star": false}, {"ar": "اُتْرُكْنِي", "sub": "اُفْعُلْ (emir)", "subLabel": "vezin", "root": "ت ر ك", "tr": "bırak beni", "note": "", "star": false}, {"ar": "يَا مَلِكَ الْغَابَةِ", "sub": "فَعِلٌ", "subLabel": "vezin", "root": "م ل ك", "tr": "ey ormanın kralı", "note": "", "star": false}, {"ar": "سَأُسَاعِدُكَ يَوْمًا مَا", "sub": "فَاعَلَ", "subLabel": "vezin", "root": "س ع د", "tr": "bir gün sana yardım edeceğim", "note": "سَـ + muzâri → gelecek", "star": false}, {"ar": "كَيْفَ يُسَاعِدُ ... ؟", "sub": "يُفَاعِلُ", "subLabel": "vezin", "root": "س ع د", "tr": "... nasıl yardım edebilir ki?", "note": "muzâri → ihtimal / şaşırma", "star": false}, {"ar": "رَجَعَ إِلَى بَيْتِهِ فَرِحًا", "sub": "فَعَلَ", "subLabel": "vezin", "root": "ر ج ع", "tr": "sevinçle yuvasına döndü", "note": "", "star": false}, {"ar": "وَقَعَ فِي شَبَكَةِ صَيَّادٍ", "sub": "فَعَّالٌ", "subLabel": "vezin", "root": "ص ي د", "tr": "bir avcının ağına düştü", "note": "", "star": false}, {"ar": "حَاوَلَ أَنْ يَخْرُجَ", "sub": "فَاعَلَ", "subLabel": "vezin", "root": "ح و ل", "tr": "çıkmaya çalıştı", "note": "أَنْ + muzâri → “-meye”", "star": false}, {"ar": "فَلَمْ يَسْتَطِعْ", "sub": "اِسْتَفْعَلَ", "subLabel": "vezin", "root": "ط و ع", "tr": "ama başaramadı", "note": "لَمْ + muzâri → olumsuz geçmiş", "star": false}, {"ar": "زَأَرَ بِصَوْتٍ عَالٍ", "sub": "فَعَلَ", "subLabel": "vezin", "root": "ز أ ر", "tr": "yüksek sesle kükredi", "note": "", "star": false}, {"ar": "أَسْرَعَ إِلَى ...", "sub": "أَفْعَلَ", "subLabel": "vezin", "root": "س ر ع", "tr": "...-in yanına koştu", "note": "", "star": false}, {"ar": "قَطَعَ ... بِأَسْنَانِهِ", "sub": "فَعَلَ", "subLabel": "vezin", "root": "ق ط ع", "tr": "...-i dişleriyle kemirdi", "note": "", "star": false}, {"ar": "خَرَجَ مِنَ ...", "sub": "فَعَلَ", "subLabel": "vezin", "root": "خ ر ج", "tr": "...-den çıktı", "note": "", "star": false}, {"ar": "عَرَفَ أَنَّ ...", "sub": "فَعَلَ", "subLabel": "vezin", "root": "ع ر ف", "tr": "...-dığını anladı", "note": "isim-fiil ile çevrilir", "star": false}, {"ar": "قَدْ يَنْفَعُ", "sub": "يَفْعَلُ", "subLabel": "vezin", "root": "ن ف ع", "tr": "faydası dokunabilir", "note": "قَدْ + muzâri → ihtimal", "star": false}];
+
+const MODES=[
+  {id:"kaliplar",title:"Kalıplar",desc:"Metindeki kalıpları Türkçesiyle eşleştir",kind:"match",pool:PATTERNS,color:"#FF5A5F"},
+  {id:"cumleler",title:"Cümleler",desc:"Kısa cümleleri çevirileriyle eşleştir",kind:"match",pool:SENTENCES,color:"#26C6DA"},
+  {id:"secim",title:"Doğru çeviriyi seç",desc:"Kelime kelime çeviri tuzağına düşme",kind:"choose",color:"#FFD54F"},
+  {id:"kartlar",title:"Kelime kartları",desc:"24 kelime, aralıklı tekrarla (★ ezber hedefi)",kind:"cards",deck:"kelime",color:"#D7B8F3"},
+  {id:"kalipkart",title:"Kalıp kartları",desc:"18 kalıp: önce anlamını çıkar, sonra çevir",kind:"cards",deck:"kalip",color:"#26C6DA"},
+  {id:"liste",title:"Kelime listesi",desc:"Kitaptaki yoklamanın cevapları",kind:"list",color:"#8E44AD"}
+];
+const DECKS={kelime:{title:"Kelime kartları",sub:"24 kelime · ★ ezber hedefi",items:WITEMS,key:"deck_kelime_h1"},kalip:{title:"Kalıp kartları",sub:"18 kalıp · Türkçesi kartın arkasında",items:KITEMS,key:"deck_kalip_h1"}};
+const ROUND=6;
+
+/* ----- helpers ----- */
+const $=id=>document.getElementById(id);
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+const store={get(k){try{return JSON.parse(localStorage.getItem("aaf_"+k))}catch(e){return null}},set(k,v){try{localStorage.setItem("aaf_"+k,JSON.stringify(v))}catch(e){}}};
+const reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+function show(id){["start","match","choose","cards","list","result"].forEach(s=>$(s).hidden=(s!==id));window.scrollTo(0,0);}
+function fmt(s){return Math.floor(s/60)+":"+String(s%60).padStart(2,"0");}
+function starsFor(mist){return mist<=1?3:mist<=3?2:1;}
+function starHTML(n){let h="";for(let i=0;i<3;i++)h+=i<n?"★":'<span class="off">★</span>';return h;}
+
+/* ----- sound (tiny, generated) ----- */
+let actx=null;
+function tone(freqs,dur){try{actx=actx||new (window.AudioContext||window.webkitAudioContext)();let t=actx.currentTime;freqs.forEach(f=>{const o=actx.createOscillator(),g=actx.createGain();o.type="triangle";o.frequency.value=f;g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.18,t+.02);g.gain.exponentialRampToValueAtTime(.0001,t+dur);o.connect(g);g.connect(actx.destination);o.start(t);o.stop(t+dur+.02);t+=dur*.6;});}catch(e){}}
+const sGood=()=>tone([660,880],.14),sBad=()=>tone([220,180],.16),sWin=()=>tone([523,659,784,1047],.16);
+
+/* ----- harakat burst ----- */
+const SHAPES=[
+  '<svg width="40" height="28" viewBox="0 0 40 28"><rect x="4" y="8" width="32" height="12" rx="6" fill="#FF5A5F" stroke="#0B1030" stroke-width="3" transform="rotate(-20 20 14)"/></svg>',
+  '<svg width="30" height="36" viewBox="0 0 30 36"><path d="M17 15 Q16 27 5 31" stroke="#0B1030" stroke-width="10" fill="none" stroke-linecap="round"/><path d="M17 15 Q16 27 5 31" stroke="#26C6DA" stroke-width="5" fill="none" stroke-linecap="round"/><circle cx="15" cy="10" r="6.5" fill="none" stroke="#0B1030" stroke-width="9"/><circle cx="15" cy="10" r="6.5" fill="none" stroke="#26C6DA" stroke-width="4.5"/></svg>',
+  '<svg width="40" height="28" viewBox="0 0 40 28"><rect x="4" y="8" width="32" height="12" rx="6" fill="#FFD54F" stroke="#0B1030" stroke-width="3" transform="rotate(-20 20 14)"/></svg>',
+  '<svg width="28" height="28" viewBox="0 0 28 28"><circle cx="14" cy="14" r="8" fill="none" stroke="#0B1030" stroke-width="9"/><circle cx="14" cy="14" r="8" fill="none" stroke="#D7B8F3" stroke-width="5"/></svg>'
+];
+function burst(el,n=10){if(reduce)return;const r=el.getBoundingClientRect();const b=document.createElement("div");b.className="burst";b.style.left=(r.left+r.width/2)+"px";b.style.top=(r.top+r.height/2)+"px";
+  for(let i=0;i<n;i++){const w=document.createElement("div");w.innerHTML=SHAPES[i%4];const s=w.firstChild;const a=Math.random()*Math.PI*2,d=60+Math.random()*90;
+    s.style.setProperty("--dx",Math.cos(a)*d+"px");s.style.setProperty("--dy",(Math.sin(a)*d-30)+"px");s.style.setProperty("--r",(Math.random()*540-270)+"deg");s.style.animationDelay=(Math.random()*.08)+"s";b.appendChild(s);}
+  document.body.appendChild(b);setTimeout(()=>b.remove(),1000);}
+function say(t){$("live").textContent=t;}
+
+/* ----- start screen ----- */
+function renderModes(){const box=$("modes");box.innerHTML="";MODES.forEach(m=>{const best=(m.kind==="cards"||m.kind==="list")?null:store.get("best_"+m.id);const b=document.createElement("button");b.className="mode";b.type="button";
+  b.innerHTML=`<span class="ic" style="background:${m.color}" aria-hidden="true">${m.kind==="list"?'<svg width="28" height="28" viewBox="0 0 28 28"><rect x="4" y="3" width="20" height="22" rx="3" fill="#fff" stroke="#0B1030" stroke-width="2.5"/><path d="M8 9 H20 M8 14 H20 M8 19 H16" stroke="#0B1030" stroke-width="2.5" stroke-linecap="round"/></svg>':m.kind==="cards"?'<svg width="28" height="28" viewBox="0 0 28 28"><rect x="7" y="3" width="16" height="21" rx="3" fill="#fff" stroke="#0B1030" stroke-width="2.5" transform="rotate(8 15 13)"/><rect x="4" y="5" width="16" height="21" rx="3" fill="#fff" stroke="#0B1030" stroke-width="2.5"/><path d="M8 12 H16 M8 17 H14" stroke="#0B1030" stroke-width="2.5" stroke-linecap="round"/></svg>':m.kind==="match"?'<svg width="28" height="28" viewBox="0 0 28 28"><rect x="2" y="4" width="10" height="20" rx="4" fill="#fff" stroke="#0B1030" stroke-width="2.5"/><rect x="16" y="4" width="10" height="20" rx="4" fill="#fff" stroke="#0B1030" stroke-width="2.5"/><path d="M12 14 H16" stroke="#0B1030" stroke-width="3"/></svg>':'<svg width="28" height="28" viewBox="0 0 28 28"><circle cx="14" cy="14" r="11" fill="#fff" stroke="#0B1030" stroke-width="2.5"/><path d="M8.5 14.5 L12.5 18.5 L19.5 10" stroke="#0B1030" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>'}</span>
+  <span><b>${m.title}</b><span class="d">${m.desc}</span></span><span class="best" aria-label="${m.kind==="list"?"Kalıp sayısı":m.kind==="cards"?"Öğrenilen kart":(best?best.stars+" yıldız":"Henüz oynanmadı")}">${m.kind==="cards"?cardsMastered(m.deck)+"/"+DECKS[m.deck].items.length:m.kind==="list"?WITEMS.length+" kelime":(best?"★".repeat(best.stars):"")}</span>`;
+  b.addEventListener("click",()=>start(m));box.appendChild(b);});}
+
+/* ----- matching game ----- */
+let cur=null,timer=null,sec=0,started=false,mist=0,matched=0,sel=null,pairs=[];
+function start(m){cur=m;if(m.kind==="match")startMatch();else if(m.kind==="cards")startCards(m.deck);else if(m.kind==="list")startList();else startChoose();}
+function startMatch(){clearInterval(timer);sec=0;started=false;mist=0;matched=0;sel=null;
+  pairs=shuffle(cur.pool).slice(0,Math.min(ROUND,cur.pool.length)).map((p,i)=>({id:i,ar:p[0],tr:p[1]}));
+  $("mTitle").innerHTML=cur.title+"<small>Arapçayı Türkçesiyle eşleştir</small>";$("mTime").textContent="0:00";$("mHint").textContent="Bir karta, sonra karşılığına dokun.";
+  const prog=$("mProg");prog.innerHTML="";pairs.forEach(()=>prog.appendChild(document.createElement("i")));
+  const ca=$("colAr"),ct=$("colTr");ca.innerHTML="";ct.innerHTML="";
+  shuffle(pairs).forEach(p=>ca.appendChild(makeCard(p,"ar")));shuffle(pairs).forEach(p=>ct.appendChild(makeCard(p,"tr")));
+  show("match");}
+function makeCard(p,side){const b=document.createElement("button");b.type="button";b.className="card "+(side==="ar"?"arc ar":"tr");b.textContent=side==="ar"?p.ar:p.tr;b.dataset.id=p.id;b.dataset.side=side;b.setAttribute("aria-pressed","false");
+  if(side==="ar")b.setAttribute("lang","ar");b.addEventListener("click",()=>tap(b));return b;}
+function tick(){sec++;$("mTime").textContent=fmt(sec);}
+function tap(b){if(b.classList.contains("done"))return;if(!started){started=true;timer=setInterval(tick,1000);}
+  if(!sel){sel=b;b.setAttribute("aria-pressed","true");return;}
+  if(sel===b){b.setAttribute("aria-pressed","false");sel=null;return;}
+  if(sel.dataset.side===b.dataset.side){sel.setAttribute("aria-pressed","false");sel=b;b.setAttribute("aria-pressed","true");return;}
+  const a=sel,c=b;sel=null;a.setAttribute("aria-pressed","false");
+  if(a.dataset.id===c.dataset.id){[a,c].forEach(x=>{x.classList.add("done");x.setAttribute("aria-disabled","true");});sGood();burst(a.dataset.side==="ar"?a:c);matched++;
+    $("mProg").children[matched-1].classList.add("on");$("mHint").textContent=matched<pairs.length?"Doğru! Devam et.":"";say("Doğru eşleşme");
+    if(matched===pairs.length){clearInterval(timer);setTimeout(()=>finish({stars:starsFor(mist),line1:`Süre: ${fmt(sec)} · Hata: ${mist}`,time:sec}),650);}}
+  else{mist++;sBad();[a,c].forEach(x=>{x.classList.remove("bad");void x.offsetWidth;x.classList.add("bad");setTimeout(()=>x.classList.remove("bad"),450);});
+    $("mHint").textContent="Bu ikisi eşleşmiyor. Bir daha dene.";say("Yanlış eşleşme");}}
+
+/* ----- choose game ----- */
+let qs=[],qi=0,score=0;
+function startChoose(){qs=shuffle(CHOICES);qi=0;score=0;mist=0;const prog=$("cProg");prog.innerHTML="";qs.forEach(()=>prog.appendChild(document.createElement("i")));$("cScore").textContent="0 ✓";show("choose");renderQ();}
+function renderQ(){const q=qs[qi];$("cCount").textContent=(qi+1)+" / "+qs.length;$("cQ").textContent=q.ar;$("cQ").setAttribute("lang","ar");$("cExp").hidden=true;$("cNext").hidden=true;
+  const box=$("cOpts");box.innerHTML="";shuffle([{t:q.ok,ok:true},{t:q.no,ok:false}]).forEach(o=>{const b=document.createElement("button");b.type="button";b.className="opt";b.textContent=o.t;b.addEventListener("click",()=>pick(b,o.ok));box.appendChild(b);});}
+function pick(b,ok){const q=qs[qi];const all=[...$("cOpts").children];all.forEach(x=>x.disabled=true);
+  if(ok){b.classList.add("right");score++;sGood();burst(b,8);say("Doğru");}
+  else{b.classList.add("wrong");mist++;sBad();all.forEach(x=>{if(x.textContent===q.ok)x.classList.add("right");});say("Yanlış. Doğru çeviri işaretlendi.");}
+  $("cScore").textContent=score+" ✓";$("cProg").children[qi].classList.add("on");
+  $("cExp").innerHTML=(ok?"Doğru! ":"Kelime kelime çeviri tuzağı. ")+q.tip;$("cExp").hidden=false;
+  const last=qi===qs.length-1;$("cNext").textContent=last?"Sonucu gör":"Sonraki cümle";$("cNext").hidden=false;$("cNext").focus();}
+$("cNext").addEventListener("click",()=>{if(qi<qs.length-1){qi++;renderQ();}else finish({stars:mist===0?3:mist===1?2:1,line1:`${qs.length} cümleden ${score} doğru`,time:null});});
+
+/* ----- result ----- */
+function finish(r){sWin();const key="best_"+cur.id;const prev=store.get(key);let rec=false;
+  if(!prev||r.stars>prev.stars||(r.stars===prev.stars&&r.time!=null&&(prev.time==null||r.time<prev.time))){store.set(key,{stars:r.stars,time:r.time});rec=!!prev;}
+  $("rStars").innerHTML=starHTML(r.stars);$("rTitle").textContent=r.stars===3?"Harika!":r.stars===2?"Çok iyi!":"İyi başlangıç!";
+  $("rLine1").textContent=r.line1;$("rLine2").textContent=rec?"Yeni rekor!":(r.stars<3?"Üç yıldız için daha az hata yapmayı dene.":"Kalıpları gerçekten öğrenmişsin.");
+  show("result");if(!reduce)setTimeout(()=>burst($("rStars"),16),120);}
+$("rAgain").addEventListener("click",()=>start(cur));
+$("rMenu").addEventListener("click",()=>{renderModes();show("start");});
+$("backM").addEventListener("click",()=>{clearInterval(timer);renderModes();show("start");});
+$("backC").addEventListener("click",()=>{renderModes();show("start");});
+
+
+/* ----- flashcards (Leitner, per deck) ----- */
+const DAY=86400000,INT=[0,1,3,7,14,30];let DK="kelime";
+function lstate(d){return store.get(DECKS[d||DK].key)||{};}
+function cardsMastered(d){const st=lstate(d);return DECKS[d].items.filter((c,i)=>st[i]&&st[i].b>=3).length;}
+let kq=[],kcur=null,kflipped=false,kKnown=0,kAgainN=0,kFailed=new Set();
+function renderBoxes(){const st=lstate();const cnt=[0,0,0,0,0,0];DECKS[DK].items.forEach((c,i)=>{cnt[st[i]?st[i].b:0]++;});
+  $("kBoxes").innerHTML=`<span class="b0">Yeni ${cnt[0]}</span>`+[1,2,3,4,5].map(b=>`<span class="b${b}">Kutu ${b}: ${cnt[b]}</span>`).join("");}
+function startCards(d){DK=d||"kelime";const D=DECKS[DK];$("kTitle").innerHTML=D.title+"<small>"+D.sub+"</small>";
+  const st=lstate(),now=Date.now();const due=D.items.map((c,i)=>i).filter(i=>!st[i]||st[i].due<=now);
+  const stars=shuffle(due.filter(i=>D.items[i].star)),rest=shuffle(due.filter(i=>!D.items[i].star));kq=stars.concat(rest);
+  kKnown=0;kAgainN=0;kFailed=new Set();renderBoxes();show("cards");nextCard();}
+function nextCard(){const D=DECKS[DK];$("kLeft").textContent=kq.length;
+  if(!kq.length){$("kPlay").hidden=true;$("kDone").hidden=false;const st=lstate();const dues=D.items.map((c,i)=>st[i]?st[i].due:0).filter(d=>d>Date.now());
+    $("kDoneTitle").textContent=kKnown+kAgainN?"Bugünlük bitti!":"Şu an tekrar edilecek kart yok";
+    $("kDoneLine1").textContent=`Öğrenilen (Kutu 3 ve üstü): ${cardsMastered(DK)} / ${D.items.length}`;
+    $("kDoneLine2").textContent=dues.length?`Sonraki tekrar: ${new Date(Math.min(...dues)).toLocaleDateString("tr-TR",{day:"numeric",month:"long"})}`:"";
+    renderBoxes();if(kKnown)sWin();return;}
+  $("kPlay").hidden=false;$("kDone").hidden=true;kcur=kq.shift();kflipped=false;const c=D.items[kcur];
+  $("kStar").textContent=c.star?"★ ezber hedefi":"";$("kAr").textContent=c.ar;$("kSub").textContent=c.sub||"";
+  $("kSubLabel").textContent=c.sub&&c.subLabel?c.subLabel+" · ":"";$("kRoot").textContent=c.root;$("kTr").textContent=c.tr;$("kNote").textContent=c.note||"";
+  $("kFront").hidden=false;$("kBack").hidden=true;$("kCard").classList.remove("back");$("kFlip").hidden=false;$("kJudge").hidden=true;}
+function flip(){if(kflipped||kcur===null)return;kflipped=true;$("kFront").hidden=true;$("kBack").hidden=false;$("kCard").classList.add("back");$("kFlip").hidden=true;$("kJudge").hidden=false;$("kKnew").focus();}
+function judge(ok){const st=lstate();const e=st[kcur]||{b:0,due:0};
+  if(ok){e.b=kFailed.has(kcur)?1:Math.min(e.b+1,5);e.due=Date.now()+INT[e.b]*DAY;kKnown++;sGood();burst($("kCard"),8);}
+  else{e.b=1;e.due=Date.now();kAgainN++;kFailed.add(kcur);sBad();kq.push(kcur);}
+  st[kcur]=e;store.set(DECKS[DK].key,st);renderBoxes();kcur=null;nextCard();}
+$("kCard").addEventListener("click",flip);$("kCard").addEventListener("keydown",e=>{if(e.key===" "||e.key==="Enter"){e.preventDefault();flip();}});
+$("kFlip").addEventListener("click",flip);$("kKnew").addEventListener("click",()=>judge(true));$("kAgain").addEventListener("click",()=>judge(false));
+$("backK").addEventListener("click",()=>{renderModes();show("start");});$("kMenu").addEventListener("click",()=>{renderModes();show("start");});
+$("kReset").addEventListener("click",()=>{store.set(DECKS[DK].key,{});startCards(DK);});
+
+/* ----- word list (answers for the book's quiz page) ----- */
+let lOpen=false;
+function startList(){const box=$("lBox");box.innerHTML="";lOpen=false;$("lAll").textContent="Tümünü göster";
+  WITEMS.forEach((c,i)=>{const r=document.createElement("button");r.type="button";r.className="wl-row"+(c.star?" star":"");r.setAttribute("aria-expanded","false");
+    r.innerHTML=`<span class="wl-num${c.star?" st":""}">${i+1}</span><span><div class="wl-ar ar" lang="ar">${c.ar}</div>${c.sub?`<div class="wl-sub ar" lang="ar">${c.sub}</div>`:""}<div class="wl-root">kök: <span class="ar" lang="ar">${c.root}</span></div><div class="wl-tr" hidden>${c.tr}${c.note?`<small>${c.note}</small>`:""}</div></span>`;
+    r.addEventListener("click",()=>{const t=r.querySelector(".wl-tr");t.hidden=!t.hidden;r.setAttribute("aria-expanded",String(!t.hidden));});box.appendChild(r);});
+  show("list");}
+$("lAll").addEventListener("click",()=>{lOpen=!lOpen;document.querySelectorAll("#lBox .wl-tr").forEach(t=>t.hidden=!lOpen);document.querySelectorAll("#lBox .wl-row").forEach(r=>r.setAttribute("aria-expanded",String(lOpen)));$("lAll").textContent=lOpen?"Tümünü gizle":"Tümünü göster";});
+$("lCards").addEventListener("click",()=>start(MODES.find(m=>m.deck==="kelime")));
+$("backL").addEventListener("click",()=>{renderModes();show("start");});
+
+renderModes();
+if(location.hash==="#liste"){start(MODES.find(m=>m.kind==="list"));}else if(location.hash==="#kaliplar"){start(MODES.find(m=>m.deck==="kalip"));}else show("start");
+})();
+</script>
+</body>
+</html>
