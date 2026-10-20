@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Konuşma I · 3. Ders · Sesli Alıştırmalar</title>
+<meta name="author" content="Dr. Ömer Faruk Karakuş">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root { --navy:#26305C; --pur:#5B3FD1; --pur2:#7C5CFF; --cor:#FF7A59; --red:#E2552F; --tea:#14B8A6; --tea2:#0F766E; --yel:#FFC93C; --ink:#1F2340; --mut:#6B6688; --bg:#FBFAFF; --card:#fff; --line:#E1DCF5; --ok:#22A06B; --bad:#D64545 }
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent }
+body { font-family: 'Nunito', system-ui, sans-serif; color: var(--ink); background: var(--bg); min-height: 100vh }
+.ar { font-family: 'Amiri', serif; direction: rtl; unicode-bidi: isolate }
+button { font: inherit; color: inherit; border: 0; background: none; cursor: pointer }
+.wrap { max-width: 780px; margin: 0 auto; padding: 0 16px 40px }
+header.top { background: var(--navy); color: #fff; position: sticky; top: 0; z-index: 20; box-shadow: 0 2px 10px rgba(0,0,0,.15) }
+.hd { max-width: 780px; margin: 0 auto; padding: 10px 16px 0; display: flex; align-items: center; gap: 10px }
+.mono { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--pur), var(--pur2)); color: var(--yel); display: flex; align-items: center; justify-content: center; font-family: "Amiri"; font-weight: 700; font-size: 12.5px; white-space: nowrap; flex: none; direction: rtl }
+.hd .t1 { font-size: 11px; letter-spacing: .08em; opacity: .75; font-weight: 800 } .hd .t2 { font-size: 13px; font-weight: 800; color: var(--yel) }
+.hd .ttl { margin-left: auto; font-family: 'Amiri'; font-size: 22px; font-weight: 700; direction: rtl }
+nav.tabs { max-width: 780px; margin: 0 auto; display: flex; gap: 6px; overflow-x: auto; padding: 10px 16px 10px; scrollbar-width: none }
+nav.tabs::-webkit-scrollbar { display: none }
+nav.tabs a { flex: none; text-decoration: none; color: #fff; background: rgba(255,255,255,.1); border-radius: 99px; padding: 6px 13px; font-size: 13px; font-weight: 800; white-space: nowrap }
+nav.tabs a.on { background: var(--yel); color: var(--navy) }
+.chip { display: inline-flex; align-items: center; gap: 5px; font-size: 11.5px; font-weight: 800; color: var(--mut); background: #fff; border: 1.5px solid var(--line); border-radius: 99px; padding: 3px 10px }
+.chip.ai { color: var(--tea2); border-color: #A7E8DE; background: #E8FFF9 } .chip.dev { color: #9A6A00; border-color: #F4D58A; background: #FFF8DC }
+h1.sec { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 18px 0 4px; flex-wrap: wrap }
+h1.sec .a { font-family: 'Amiri'; font-size: 30px; font-weight: 700; color: var(--pur); direction: rtl; line-height: 1.3 }
+h1.sec .b { font-size: 13px; font-weight: 800; color: var(--mut); letter-spacing: .04em; text-transform: uppercase }
+p.hint { font-size: 13.5px; color: var(--mut); line-height: 1.5; margin: 4px 0 12px }
+.bar { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 14px; align-items: center }
+.btn { display: inline-flex; align-items: center; gap: 7px; background: #fff; border: 2px solid var(--navy); border-radius: 12px; padding: 7px 13px; font-weight: 800; font-size: 14px; box-shadow: 2px 2px 0 var(--navy); color: var(--navy) }
+.btn:active { transform: translate(2px,2px); box-shadow: none }
+.btn.p { background: var(--pur); color: #fff } .btn.c { background: var(--cor); color: #fff } .btn.t { background: var(--tea); color: #fff } .btn.y { background: var(--yel) }
+.btn.on { background: var(--navy); color: #fff }
+.btn svg, .ib svg { width: 18px; height: 18px; flex: none }
+/* hub */
+.hub { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px }
+.hc { display: block; text-decoration: none; color: var(--ink); background: #fff; border: 2.5px solid var(--navy); border-radius: 16px; box-shadow: 3px 3px 0 var(--navy); padding: 14px; position: relative; overflow: hidden }
+.hc .ic { width: 42px; height: 42px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #fff; margin-bottom: 8px }
+.hc .ic svg { width: 24px; height: 24px }
+.hc .a { font-family: 'Amiri'; font-size: 21px; font-weight: 700; direction: rtl; text-align: right; line-height: 1.35 }
+.hc .b { font-size: 13px; font-weight: 800; color: var(--mut) }
+.hc.wide { grid-column: 1 / -1 }
+.note { background: #FFF8DC; border: 2px dashed #F4C55A; border-radius: 14px; padding: 12px 14px; font-size: 13.5px; line-height: 1.55; margin-top: 16px; color: #5C4A1A }
+/* dialogue */
+.dlg { display: flex; flex-direction: column; gap: 10px }
+.ln { display: flex; align-items: flex-end; gap: 9px; direction: rtl }
+.ln.b { flex-direction: row-reverse }
+.av { width: 46px; height: 46px; border-radius: 50%; overflow: hidden; flex: none; border: 2.5px solid var(--navy); background: #EEF2FB }
+.av svg { width: 100%; height: 100%; display: block }
+.bb { position: relative; background: #fff; border: 2.5px solid var(--navy); border-radius: 16px; padding: 7px 12px 6px; max-width: 82%; box-shadow: 2px 2px 0 var(--navy); transition: transform .15s, background .15s }
+.ln.a .bb { border-bottom-right-radius: 4px } .ln.b .bb { border-bottom-left-radius: 4px; background: #FFF4EF }
+.ln.cur .bb { background: #FFF6D6; transform: scale(1.02) }
+.ln.me .bb { background: #E8FFF9 }
+.bb .who { font-family: 'Amiri'; font-size: 14px; font-weight: 700; color: var(--pur); display: block; line-height: 1.2 }
+.ln.b .bb .who { color: var(--red) }
+.bb .tx { font-family: 'Amiri'; font-size: 22px; font-weight: 700; line-height: 1.65; direction: rtl; display: block }
+.hide .bb .tx { filter: blur(7px); user-select: none } .hide .bb.show .tx { filter: none }
+.ctl { display: flex; gap: 6px; margin-top: 4px; direction: ltr; justify-content: flex-start; align-items: center; flex-wrap: wrap }
+.ib { width: 34px; height: 34px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; border: 2px solid var(--navy); background: #fff; color: var(--navy) }
+.ib.pl { background: var(--pur); color: #fff } .ib.mic.on { background: var(--bad); color: #fff; animation: pulse 1s infinite } .ib.mine { background: var(--tea); color: #fff } .ib.dl { background: #fff }
+@keyframes pulse { 50% { box-shadow: 0 0 0 6px rgba(214,69,69,.25) } }
+.rp { background: #E8FFF9; border: 2px solid #A7E8DE; border-radius: 14px; padding: 10px 12px; font-weight: 800; color: var(--tea2); display: none; align-items: center; gap: 10px; margin-bottom: 12px }
+.rp.on { display: flex } .rp .pb { flex: 1; height: 8px; background: #fff; border-radius: 9px; overflow: hidden } .rp .pb i { display: block; height: 100%; width: 0; background: var(--tea) }
+/* vocab */
+.modes { display: flex; gap: 6px; flex-wrap: wrap; margin: 6px 0 14px }
+.modes button { border: 2px solid var(--navy); border-radius: 99px; padding: 5px 12px; font-weight: 800; font-size: 13px; background: #fff }
+.modes button.on { background: var(--navy); color: #fff }
+.vg { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; direction: rtl }
+.vc { background: #fff; border: 2.5px solid var(--navy); border-radius: 14px; box-shadow: 2px 2px 0 var(--navy); min-height: 116px; padding: 8px; text-align: center; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer }
+.vc.st { background: #FFF8DC }
+.vc .no { position: absolute; top: 6px; right: 7px; font-family: 'Amiri'; font-size: 13px; font-weight: 700; color: var(--pur); background: #EEE9FF; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center }
+.vc .star { position: absolute; top: 6px; left: 8px; color: #F2A900; font-size: 14px }
+.vc .w { font-family: 'Amiri'; font-size: 24px; font-weight: 700; line-height: 1.55 } .vc .w.sm { font-size: 19px }
+.vc .mz { font-family: 'Amiri'; font-size: 14px; color: var(--mut); line-height: 1.5 }
+.vc .rt { font-family: 'Amiri'; font-size: 13px; color: var(--tea2); background: #E8FFF9; border-radius: 99px; padding: 0 8px; margin-top: 2px }
+.vc .tr { font-size: 15px; font-weight: 900; color: var(--pur); direction: ltr }
+.vc .fl { position: absolute; bottom: 6px; left: 7px; font-size: 10.5px; font-weight: 900; color: var(--mut); border: 1.5px solid var(--line); border-radius: 99px; padding: 1px 6px; background: #fff }
+.vc.back { background: #F4F1FF }
+.qz { background: #fff; border: 2.5px solid var(--navy); border-radius: 18px; box-shadow: 3px 3px 0 var(--navy); padding: 16px; text-align: center }
+.qz .top { display: flex; justify-content: space-between; font-weight: 900; color: var(--mut); font-size: 13px; margin-bottom: 10px }
+.qz .big { font-family: 'Amiri'; font-size: 40px; font-weight: 700; line-height: 1.6; direction: rtl }
+.bigplay { width: 84px; height: 84px; border-radius: 50%; background: var(--pur); color: #fff; display: inline-flex; align-items: center; justify-content: center; border: 3px solid var(--navy); box-shadow: 3px 3px 0 var(--navy); margin: 6px auto 12px }
+.bigplay svg { width: 40px; height: 40px }
+.opts { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 8px }
+.opt { background: #fff; border: 2.5px solid var(--navy); border-radius: 14px; padding: 10px 8px; font-weight: 800; font-size: 16px; box-shadow: 2px 2px 0 var(--navy); min-height: 58px }
+.opt.ar { font-family: 'Amiri'; font-size: 22px; font-weight: 700 }
+.opt.ok { background: #DDF6E8; border-color: var(--ok); color: #136B45 } .opt.no { background: #FDE2E2; border-color: var(--bad); color: #8E2323 }
+.score { font-size: 18px; font-weight: 900; margin: 10px 0 }
+.mt { display: grid; grid-template-columns: 1fr 1fr; gap: 10px }
+.mt .col { display: flex; flex-direction: column; gap: 8px }
+.mt button { background: #fff; border: 2.5px solid var(--navy); border-radius: 12px; min-height: 52px; padding: 6px; font-weight: 800; box-shadow: 2px 2px 0 var(--navy) }
+.mt button.ar { font-family: 'Amiri'; font-size: 21px; font-weight: 700 }
+.mt button.sel { background: var(--yel) } .mt button.done { opacity: .25; pointer-events: none } .mt button.no { background: #FDE2E2 }
+/* patterns */
+.kp { background: #fff; border: 2.5px solid var(--navy); border-radius: 16px; box-shadow: 3px 3px 0 var(--navy); padding: 10px 12px; margin-bottom: 12px }
+.kp .row { display: flex; align-items: center; gap: 8px; direction: rtl; padding: 4px 0 }
+.kp .row + .row { border-top: 1.5px dashed var(--line) }
+.kp .av { width: 36px; height: 36px; border-width: 2px }
+.kp .tx { flex: 1; font-family: 'Amiri'; font-size: 21px; font-weight: 700; line-height: 1.6 }
+.kp .row.q .tx { color: var(--pur) } .kp .row.a .tx { color: var(--red) }
+.kp .ctl { margin: 0 }
+.kp .ix { width: 26px; height: 26px; border-radius: 50%; background: var(--yel); font-family: 'Amiri'; font-weight: 700; display: flex; align-items: center; justify-content: center; flex: none }
+/* directions */
+.cmp { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; direction: ltr; max-width: 420px; margin: 0 auto }
+.cmp button, .arrs button { background: #fff; border: 2.5px solid var(--navy); border-radius: 14px; box-shadow: 2px 2px 0 var(--navy); padding: 8px 4px; min-height: 76px }
+.cmp button .d { font-family: 'Amiri'; font-size: 20px; font-weight: 700; color: var(--tea2); line-height: 1.3; direction: rtl }
+.cmp button .c { font-family: 'Amiri'; font-size: 16px; font-weight: 700; color: #7A4B00; background: #FFF6D6; border-radius: 99px; padding: 0 8px; display: inline-block; direction: rtl }
+.cmp button .t { font-size: 10.5px; font-weight: 900; color: var(--mut); letter-spacing: .05em }
+.cmp .rose { display: flex; align-items: center; justify-content: center }
+.cmp .rose svg { width: 64px; height: 64px }
+.arrs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; direction: ltr; max-width: 420px; margin: 12px auto 0 }
+.arrs svg { width: 34px; height: 34px; display: block; margin: 0 auto } .arrs .a { font-family: 'Amiri'; font-size: 18px; font-weight: 700; direction: rtl }
+.cmp button.ok, .arrs button.ok { background: #DDF6E8; border-color: var(--ok) } .cmp button.no, .arrs button.no { background: #FDE2E2; border-color: var(--bad) }
+/* teacher check */
+.kt { background: #fff; border: 2px solid var(--line); border-radius: 14px; padding: 12px; margin-bottom: 14px }
+.kt h3 { font-size: 15px; font-weight: 900; display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap }
+.kt .st { font-size: 12.5px; color: var(--mut); margin: 4px 0 8px } .kt .st b.good { color: var(--ok) } .kt .st b.warn { color: #B7791F } .kt .st b.bad { color: var(--bad) }
+.kt .it { display: flex; align-items: center; gap: 8px; padding: 4px 0; border-top: 1px solid #F0EDFA }
+.kt .it .tm { font-size: 11px; color: var(--mut); width: 92px; flex: none; font-variant-numeric: tabular-nums }
+.kt .it .tx { flex: 1; font-family: 'Amiri'; font-size: 18px; direction: rtl; text-align: right }
+footer { text-align: center; font-size: 11.5px; color: var(--mut); padding: 22px 16px 30px; line-height: 1.6 }
+.toast { position: fixed; left: 50%; bottom: 22px; transform: translateX(-50%); background: var(--navy); color: #fff; padding: 9px 16px; border-radius: 12px; font-weight: 800; font-size: 13.5px; opacity: 0; transition: opacity .25s; z-index: 50; pointer-events: none; max-width: 90vw; text-align: center }
+.toast.on { opacity: 1 }
+@media (max-width: 520px) { .hd .ttl { font-size: 18px } .bb .tx { font-size: 20px } .qz .big { font-size: 34px } .hub { grid-template-columns: 1fr } }
+</style>
+</head>
+<body>
+<header class="top">
+ <div class="hd"><span class="mono">ع ف ك</span><div><div class="t1">ARAPÇA KONUŞMA I · 3. DERS</div><div class="t2">Dr. Ömer Faruk Karakuş</div></div><div class="ttl">فِي الْجَامِعَةِ</div></div>
+ <nav class="tabs" id="tabs">
+  <a href="#" data-r="">Başlangıç</a><a href="#d1" data-r="d1">1. Diyalog</a><a href="#d2" data-r="d2">2. Diyalog</a>
+  <a href="#kelimeler" data-r="kelimeler">Kelimeler</a><a href="#kaliplar" data-r="kaliplar">Kalıplar</a><a href="#yonler" data-r="yonler">Yönler</a>
+ </nav>
+</header>
+<main class="wrap" id="app"></main>
+<footer>© 2026 Dr. Ömer Faruk Karakuş · Atatürk Üniversitesi, Arap Dili ve Edebiyatı Bölümü<br>Seslendirme yapay zekâ ile üretilmiştir (Google AI Studio). Ses dosyası yüklenmemişse cihazın Arapça sesi kullanılır.<br>Ses kayıtların yalnızca senin cihazında kalır; hiçbir yere gönderilmez.</footer>
+<div class="toast" id="toast"></div>
+<script>
+const DATA = {"d1": {"file": "diyalog-1", "title": "اَلْحِوَارُ الْأَوَّلُ", "sub": "Kampüste yol sormak", "items": [{"s": "يُوسُفُ", "t": "لَوْ سَمَحْتِ يَا مَرْيَمُ، أَيْنَ مَكْتَبَةُ الْجَامِعَةِ؟ أَحْمَدُ هُنَاكَ الْآنَ.", "n": "Yusuf"}, {"s": "مَرْيَمُ", "t": "الْمَكْتَبَةُ قَرِيبَةٌ مِنْ هُنَا، خَلْفَ الْمَسْجِدِ.", "n": "Meryem"}, {"s": "يُوسُفُ", "t": "وَكَيْفَ أَذْهَبُ إِلَى الْمَسْجِدِ؟", "n": "Yusuf"}, {"s": "مَرْيَمُ", "t": "اِذْهَبْ مُسْتَقِيمًا، وَالْمَسْجِدُ عَلَى يَمِينِكَ.", "n": "Meryem"}, {"s": "يُوسُفُ", "t": "مَرَّةً أُخْرَى، مِنْ فَضْلِكِ.", "n": "Yusuf"}, {"s": "مَرْيَمُ", "t": "اِذْهَبْ مُسْتَقِيمًا. الْمَسْجِدُ عَلَى يَمِينِكَ، وَالْمَكْتَبَةُ خَلْفَهُ.", "n": "Meryem"}, {"s": "يُوسُفُ", "t": "فَهِمْتُ، شُكْرًا! وَالْمَطْعَمُ؟ أَيْنَ هُوَ؟", "n": "Yusuf"}, {"s": "مَرْيَمُ", "t": "الْمَطْعَمُ بِجَانِبِ الْمَكْتَبَةِ، عَلَى الْيَسَارِ.", "n": "Meryem"}, {"s": "يُوسُفُ", "t": "جَزَاكِ اللّٰهُ خَيْرًا يَا مَرْيَمُ.", "n": "Yusuf"}, {"s": "مَرْيَمُ", "t": "وَإِيَّاكَ. اُنْظُرْ! ذٰلِكَ أَحْمَدُ، أَمَامَ بَابِ الْكُلِّيَّةِ!", "n": "Meryem"}, {"s": "يُوسُفُ", "t": "آهْ، صَحِيحٌ! يَا أَحْمَدُ، نَحْنُ هُنَا!", "n": "Yusuf"}]}, "d2": {"file": "diyalog-2", "title": "اَلْحِوَارُ الثَّانِي", "sub": "Sınıfta, haritanın önünde", "items": [{"s": "زَيْنَبُ", "t": "يَا أَحْمَدُ، هٰذِهِ خَرِيطَةُ تُرْكِيَا. أَيْنَ طَرَابْزُونُ؟", "n": "Zeynep"}, {"s": "أَحْمَدُ", "t": "طَرَابْزُونُ هُنَا، فِي الشَّمَالِ، عَلَى الْبَحْرِ الْأَسْوَدِ.", "n": "Ahmed"}, {"s": "زَيْنَبُ", "t": "وَأَيْنَ قُونِيَةُ، مَدِينَةُ يُوسُفَ؟", "n": "Zeynep"}, {"s": "أَحْمَدُ", "t": "قُونِيَةُ فِي وَسَطِ تُرْكِيَا.", "n": "Ahmed"}, {"s": "زَيْنَبُ", "t": "وَأَرْضَرُومُ فِي الشَّرْقِ، صَحِيحٌ؟", "n": "Zeynep"}, {"s": "أَحْمَدُ", "t": "صَحِيحٌ، أَرْضَرُومُ فِي شَرْقِ تُرْكِيَا. وَأَيْنَ بَلَدُكِ؟", "n": "Ahmed"}, {"s": "زَيْنَبُ", "t": "أَذَرْبِيجَانُ شَرْقَ تُرْكِيَا، وَبَاكُو عَلَى بَحْرِ قَزْوِينَ.", "n": "Zeynep"}, {"s": "أَحْمَدُ", "t": "إِذَنْ، بَلَدُكِ قَرِيبٌ مِنْ أَرْضَرُومَ!", "n": "Ahmed"}, {"s": "زَيْنَبُ", "t": "نَعَمْ. وَأَيْنَ الْقِبْلَةُ مِنْ هُنَا؟", "n": "Zeynep"}, {"s": "أَحْمَدُ", "t": "الْقِبْلَةُ فِي الْجَنُوبِ. اُنْظُرِي، هُنَاكَ!", "n": "Ahmed"}, {"s": "زَيْنَبُ", "t": "إِذَنِ الشَّمَالُ خَلْفِي!", "n": "Zeynep"}, {"s": "أَحْمَدُ", "t": "أَحْسَنْتِ!", "n": "Ahmed"}]}, "kelimeler": {"file": "kelimeler", "title": "اَلْمُفْرَدَاتُ", "sub": "Kelimeler", "items": [{"t": "أَيْنَ؟", "mz": "", "rt": "لِلسُّؤَالِ", "st": true, "tr": "nerede?"}, {"t": "كُلِّيَّةٌ", "mz": "", "rt": "ك ل ل", "st": true, "tr": "fakülte"}, {"t": "مَطْعَمٌ", "mz": "", "rt": "ط ع م", "st": true, "tr": "lokanta, yemekhane"}, {"t": "طَرِيقٌ", "mz": "ج: طُرُقٌ", "rt": "ط ر ق", "st": false, "tr": "yol"}, {"t": "أَمَامَ / خَلْفَ", "mz": "", "rt": "أ م م · خ ل ف", "st": true, "tr": "önünde / arkasında"}, {"t": "بِجَانِبِ", "mz": "", "rt": "ج ن ب", "st": true, "tr": "yanında"}, {"t": "بَيْنَ", "mz": "", "rt": "ب ي ن", "st": true, "tr": "arasında"}, {"t": "يَمِينٌ / يَسَارٌ", "mz": "", "rt": "ي م ن · ي س ر", "st": true, "tr": "sağ / sol"}, {"t": "مُسْتَقِيمًا", "mz": "", "rt": "ق و م", "st": true, "tr": "dümdüz"}, {"t": "إِلَى", "mz": "", "rt": "حَرْفُ جَرٍّ", "st": false, "tr": "-e, -a (doğru)"}, {"t": "قَرِيبٌ / بَعِيدٌ", "mz": "م: قَرِيبَةٌ / بَعِيدَةٌ", "rt": "ق ر ب · ب ع د", "st": true, "tr": "yakın / uzak"}, {"t": "اِذْهَبْ", "mz": "م: اِذْهَبِي", "rt": "ذ ه ب", "st": true, "tr": "git!"}, {"t": "لَوْ سَمَحْتَ", "mz": "م: لَوْ سَمَحْتِ", "rt": "س م ح", "st": true, "tr": "affedersin, bakar mısın"}, {"t": "فَهِمْتُ", "mz": "", "rt": "ف ه م", "st": false, "tr": "anladım"}, {"t": "جَزَاكَ اللّٰهُ خَيْرًا", "mz": "م: جَزَاكِ اللّٰهُ خَيْرًا", "rt": "ج ز ي", "st": false, "tr": "Allah razı olsun"}, {"t": "الْآنَ", "mz": "", "rt": "لِلزَّمَانِ", "st": false, "tr": "şimdi"}, {"t": "خَرِيطَةٌ", "mz": "", "rt": "خ ر ط", "st": false, "tr": "harita"}, {"t": "بَلَدٌ", "mz": "ج: بِلَادٌ", "rt": "ب ل د", "st": false, "tr": "ülke, memleket"}, {"t": "مَدِينَةٌ", "mz": "ج: مُدُنٌ", "rt": "م د ن", "st": true, "tr": "şehir"}, {"t": "بَحْرٌ", "mz": "", "rt": "ب ح ر", "st": false, "tr": "deniz"}, {"t": "شَمَالٌ / جَنُوبٌ", "mz": "", "rt": "ش م ل · ج ن ب", "st": true, "tr": "kuzey / güney"}, {"t": "شَرْقٌ / غَرْبٌ", "mz": "", "rt": "ش ر ق · غ ر ب", "st": true, "tr": "doğu / batı"}, {"t": "وَسَطٌ", "mz": "", "rt": "و س ط", "st": false, "tr": "orta"}, {"t": "قِبْلَةٌ", "mz": "", "rt": "ق ب ل", "st": false, "tr": "kıble"}]}, "kaliplar": {"file": "kaliplar", "title": "اَلتَّرَاكِيبُ", "sub": "Kalıplar", "items": [{"s": "أَحْمَدُ", "t": "أَيْنَ الْمَكْتَبَةُ؟", "k": "q", "n": "Ahmed"}, {"s": "زَيْنَبُ", "t": "هِيَ خَلْفَ الْمَسْجِدِ.", "k": "a", "n": "Zeynep"}, {"s": "أَحْمَدُ", "t": "أَيْنَ الْمَطْعَمُ؟", "k": "q", "n": "Ahmed"}, {"s": "زَيْنَبُ", "t": "هُوَ بِجَانِبِ الْمَكْتَبَةِ.", "k": "a", "n": "Zeynep"}, {"s": "زَيْنَبُ", "t": "أَيْنَ أَنْتَ الْآنَ؟", "k": "q", "n": "Zeynep"}, {"s": "أَحْمَدُ", "t": "أَنَا أَمَامَ الْكُلِّيَّةِ.", "k": "a", "n": "Ahmed"}, {"s": "أَحْمَدُ", "t": "كَيْفَ أَذْهَبُ إِلَى الْمَسْجِدِ؟", "k": "q", "n": "Ahmed"}, {"s": "زَيْنَبُ", "t": "اِذْهَبْ مُسْتَقِيمًا.", "k": "a", "n": "Zeynep"}, {"s": "أَحْمَدُ", "t": "هَلِ الْمَكْتَبَةُ بَعِيدَةٌ؟", "k": "q", "n": "Ahmed"}, {"s": "زَيْنَبُ", "t": "لَا، هِيَ قَرِيبَةٌ جِدًّا.", "k": "a", "n": "Zeynep"}, {"s": "أَحْمَدُ", "t": "مِنْ أَيْنَ زَيْنَبُ؟", "k": "q", "n": "Ahmed"}, {"s": "زَيْنَبُ", "t": "هِيَ مِنْ أَذَرْبِيجَانَ.", "k": "a", "n": "Zeynep"}, {"s": "زَيْنَبُ", "t": "فِي أَيِّ جِهَةٍ الْقِبْلَةُ؟", "k": "q", "n": "Zeynep"}, {"s": "أَحْمَدُ", "t": "فِي الْجَنُوبِ.", "k": "a", "n": "Ahmed"}, {"s": "أَحْمَدُ", "t": "جَزَاكِ اللّٰهُ خَيْرًا.", "k": "q", "n": "Ahmed"}, {"s": "زَيْنَبُ", "t": "وَإِيَّاكَ.", "k": "a", "n": "Zeynep"}, {"s": "زَيْنَبُ", "t": "مَا خَلْفَكَ؟", "k": "q", "n": "Zeynep"}, {"s": "أَحْمَدُ", "t": "النَّافِذَةُ خَلْفِي.", "k": "a", "n": "Ahmed"}]}, "yonler": {"file": "yonler", "title": "اَلْجِهَاتُ", "sub": "Yönler", "items": [{"t": "طَرَابْزُونُ فِي الشَّمَالِ.", "k": "n", "c": "طَرَابْزُونُ"}, {"t": "أَنْطَالْيَا فِي الْجَنُوبِ.", "k": "s", "c": "أَنْطَالْيَا"}, {"t": "أَرْضَرُومُ فِي الشَّرْقِ.", "k": "e", "c": "أَرْضَرُومُ"}, {"t": "إِزْمِيرُ فِي الْغَرْبِ.", "k": "w", "c": "إِزْمِيرُ"}, {"t": "قُونِيَةُ فِي الْوَسَطِ.", "k": "c", "c": "قُونِيَةُ"}, {"t": "عَلَى الْيَمِينِ.", "k": "R"}, {"t": "مُسْتَقِيمًا.", "k": "U"}, {"t": "عَلَى الْيَسَارِ.", "k": "L"}]}};
+const AV = {"أَحْمَدُ": "<svg viewBox=\"-62 -300 124 124\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"0\" cy=\"-238\" r=\"62\" fill=\"#EEF2FB\"/><clipPath id=\"c3367\"><circle cx=\"0\" cy=\"-238\" r=\"60\"/></clipPath><g clip-path=\"url(#c3367)\"><g transform=\"translate(0,0) scale(1)\"><line x1=\"-13\" y1=\"-96\" x2=\"-13\" y2=\"-6\" stroke=\"#2F3B66\" stroke-width=\"15\" stroke-linecap=\"round\"/><line x1=\"13\" y1=\"-96\" x2=\"13\" y2=\"-6\" stroke=\"#2F3B66\" stroke-width=\"15\" stroke-linecap=\"round\"/><ellipse cx=\"-16\" cy=\"-3\" rx=\"14\" ry=\"6.5\" fill=\"#1E1A18\"/><ellipse cx=\"16\" cy=\"-3\" rx=\"14\" ry=\"6.5\" fill=\"#1E1A18\"/><rect x=\"-38\" y=\"-196\" width=\"76\" height=\"114\" rx=\"24\" fill=\"#F4F6FA\" stroke=\"#AEB8CC\" stroke-width=\"3\"/><path d=\"M -13 -196 L 0 -180 L 13 -196\" fill=\"none\" stroke=\"#AEB8CC\" stroke-width=\"3\"/><polyline points=\"-32,-180 -48,-104\" fill=\"none\" stroke=\"#AEB8CC\" stroke-width=\"21\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><polyline points=\"-32,-180 -48,-104\" fill=\"none\" stroke=\"#F4F6FA\" stroke-width=\"17\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><circle cx=\"-48\" cy=\"-104\" r=\"9.5\" fill=\"#D49C74\"/><polyline points=\"32,-180 48,-104\" fill=\"none\" stroke=\"#AEB8CC\" stroke-width=\"21\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><polyline points=\"32,-180 48,-104\" fill=\"none\" stroke=\"#F4F6FA\" stroke-width=\"17\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><circle cx=\"48\" cy=\"-104\" r=\"9.5\" fill=\"#D49C74\"/><circle cx=\"-37\" cy=\"-230\" r=\"7.5\" fill=\"#D49C74\"/><circle cx=\"37\" cy=\"-230\" r=\"7.5\" fill=\"#D49C74\"/><circle cx=\"0\" cy=\"-232\" r=\"38\" fill=\"#D49C74\"/><path d=\"M -39 -230 Q -43 -283 0 -284 Q 43 -283 39 -230 Q 35 -259 14 -262 Q 0 -251 -16 -262 Q -35 -259 -39 -230 Z\" fill=\"#2B1D14\"/><circle cx=\"-12\" cy=\"-236\" r=\"4.3\" fill=\"#1F2340\"/><circle cx=\"12\" cy=\"-236\" r=\"4.3\" fill=\"#1F2340\"/><path d=\"M -19 -249 L -6 -251\" stroke=\"#3B2A20\" stroke-width=\"3.2\" stroke-linecap=\"round\"/><path d=\"M 6 -251 L 19 -249\" stroke=\"#3B2A20\" stroke-width=\"3.2\" stroke-linecap=\"round\"/><path d=\"M -10 -216 Q 0 -206 10 -216\" fill=\"none\" stroke=\"#7A2E2E\" stroke-width=\"3.6\" stroke-linecap=\"round\"/><circle cx=\"-21\" cy=\"-219\" r=\"5\" fill=\"#F29B9B\" opacity=\".55\"/><circle cx=\"21\" cy=\"-219\" r=\"5\" fill=\"#F29B9B\" opacity=\".55\"/></g></g></svg>", "يُوسُفُ": "<svg viewBox=\"-62 -300 124 124\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"0\" cy=\"-238\" r=\"62\" fill=\"#EEF2FB\"/><clipPath id=\"c2621\"><circle cx=\"0\" cy=\"-238\" r=\"60\"/></clipPath><g clip-path=\"url(#c2621)\"><g transform=\"translate(0,0) scale(1)\"><line x1=\"-13\" y1=\"-96\" x2=\"-13\" y2=\"-6\" stroke=\"#26305C\" stroke-width=\"15\" stroke-linecap=\"round\"/><line x1=\"13\" y1=\"-96\" x2=\"13\" y2=\"-6\" stroke=\"#26305C\" stroke-width=\"15\" stroke-linecap=\"round\"/><ellipse cx=\"-16\" cy=\"-3\" rx=\"14\" ry=\"6.5\" fill=\"#1E1A18\"/><ellipse cx=\"16\" cy=\"-3\" rx=\"14\" ry=\"6.5\" fill=\"#1E1A18\"/><rect x=\"-38\" y=\"-196\" width=\"76\" height=\"114\" rx=\"24\" fill=\"#3E6FB0\"/><path d=\"M -12 -196 L 0 -176 L 12 -196 Z\" fill=\"#CFE2F6\"/><polyline points=\"-32,-180 -48,-104\" fill=\"none\" stroke=\"#3E6FB0\" stroke-width=\"17\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><circle cx=\"-48\" cy=\"-104\" r=\"9.5\" fill=\"#77472A\"/><polyline points=\"32,-180 48,-104\" fill=\"none\" stroke=\"#3E6FB0\" stroke-width=\"17\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><circle cx=\"48\" cy=\"-104\" r=\"9.5\" fill=\"#77472A\"/><circle cx=\"-37\" cy=\"-230\" r=\"7.5\" fill=\"#77472A\"/><circle cx=\"37\" cy=\"-230\" r=\"7.5\" fill=\"#77472A\"/><circle cx=\"0\" cy=\"-232\" r=\"38\" fill=\"#77472A\"/><path d=\"M -37 -238 Q -36 -272 0 -273 Q 36 -272 37 -238 Q 30 -259 0 -261 Q -30 -259 -37 -238 Z\" fill=\"#1E130C\"/><circle cx=\"-12\" cy=\"-236\" r=\"4.3\" fill=\"#1F2340\"/><circle cx=\"12\" cy=\"-236\" r=\"4.3\" fill=\"#1F2340\"/><path d=\"M -19 -249 L -6 -251\" stroke=\"#3B2A20\" stroke-width=\"3.2\" stroke-linecap=\"round\"/><path d=\"M 6 -251 L 19 -249\" stroke=\"#3B2A20\" stroke-width=\"3.2\" stroke-linecap=\"round\"/><path d=\"M -10 -216 Q 0 -206 10 -216\" fill=\"none\" stroke=\"#7A2E2E\" stroke-width=\"3.6\" stroke-linecap=\"round\"/><circle cx=\"-21\" cy=\"-219\" r=\"5\" fill=\"#F29B9B\" opacity=\".55\"/><circle cx=\"21\" cy=\"-219\" r=\"5\" fill=\"#F29B9B\" opacity=\".55\"/></g></g></svg>", "مَرْيَمُ": "<svg viewBox=\"-62 -300 124 124\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"0\" cy=\"-238\" r=\"62\" fill=\"#EEF2FB\"/><clipPath id=\"c6396\"><circle cx=\"0\" cy=\"-238\" r=\"60\"/></clipPath><g clip-path=\"url(#c6396)\"><g transform=\"translate(0,0) scale(1)\"><line x1=\"-12\" y1=\"-34\" x2=\"-12\" y2=\"-5\" stroke=\"#3A2E2A\" stroke-width=\"12\" stroke-linecap=\"round\"/><line x1=\"12\" y1=\"-34\" x2=\"12\" y2=\"-5\" stroke=\"#3A2E2A\" stroke-width=\"12\" stroke-linecap=\"round\"/><ellipse cx=\"-15\" cy=\"-3\" rx=\"13\" ry=\"6\" fill=\"#1E1A18\"/><ellipse cx=\"15\" cy=\"-3\" rx=\"13\" ry=\"6\" fill=\"#1E1A18\"/><path d=\"M -36 -192 Q 0 -200 36 -192 L 52 -30 Q 0 -20 -52 -30 Z\" fill=\"#D9AE72\"/><polyline points=\"-32,-180 -48,-104\" fill=\"none\" stroke=\"#D9AE72\" stroke-width=\"17\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><circle cx=\"-48\" cy=\"-104\" r=\"9.5\" fill=\"#F2CDAB\"/><polyline points=\"32,-180 48,-104\" fill=\"none\" stroke=\"#D9AE72\" stroke-width=\"17\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><circle cx=\"48\" cy=\"-104\" r=\"9.5\" fill=\"#F2CDAB\"/><circle cx=\"0\" cy=\"-236\" r=\"47\" fill=\"#26305C\"/><path d=\"M -47 -236 Q -54 -172 -40 -164 L 40 -164 Q 54 -172 47 -236 Z\" fill=\"#26305C\"/><ellipse cx=\"0\" cy=\"-229\" rx=\"29\" ry=\"33\" fill=\"#F2CDAB\"/><circle cx=\"-12\" cy=\"-236\" r=\"4.3\" fill=\"#1F2340\"/><circle cx=\"12\" cy=\"-236\" r=\"4.3\" fill=\"#1F2340\"/><path d=\"M -19 -249 L -6 -251\" stroke=\"#3B2A20\" stroke-width=\"3.2\" stroke-linecap=\"round\"/><path d=\"M 6 -251 L 19 -249\" stroke=\"#3B2A20\" stroke-width=\"3.2\" stroke-linecap=\"round\"/><path d=\"M -10 -216 Q 0 -206 10 -216\" fill=\"none\" stroke=\"#7A2E2E\" stroke-width=\"3.6\" stroke-linecap=\"round\"/><circle cx=\"-21\" cy=\"-219\" r=\"5\" fill=\"#F29B9B\" opacity=\".55\"/><circle cx=\"21\" cy=\"-219\" r=\"5\" fill=\"#F29B9B\" opacity=\".55\"/></g></g></svg>", "زَيْنَبُ": "<svg viewBox=\"-62 -300 124 124\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"0\" cy=\"-238\" r=\"62\" fill=\"#EEF2FB\"/><clipPath id=\"c1918\"><circle cx=\"0\" cy=\"-238\" r=\"60\"/></clipPath><g clip-path=\"url(#c1918)\"><g transform=\"translate(0,0) scale(1)\"><line x1=\"-12\" y1=\"-34\" x2=\"-12\" y2=\"-5\" stroke=\"#3A2E2A\" stroke-width=\"12\" stroke-linecap=\"round\"/><line x1=\"12\" y1=\"-34\" x2=\"12\" y2=\"-5\" stroke=\"#3A2E2A\" stroke-width=\"12\" stroke-linecap=\"round\"/><ellipse cx=\"-15\" cy=\"-3\" rx=\"13\" ry=\"6\" fill=\"#1E1A18\"/><ellipse cx=\"15\" cy=\"-3\" rx=\"13\" ry=\"6\" fill=\"#1E1A18\"/><path d=\"M -36 -192 Q 0 -200 36 -192 L 52 -30 Q 0 -20 -52 -30 Z\" fill=\"#2A9D8F\"/><polyline points=\"-32,-180 -48,-104\" fill=\"none\" stroke=\"#2A9D8F\" stroke-width=\"17\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><circle cx=\"-48\" cy=\"-104\" r=\"9.5\" fill=\"#DDAA82\"/><polyline points=\"32,-180 48,-104\" fill=\"none\" stroke=\"#2A9D8F\" stroke-width=\"17\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><circle cx=\"48\" cy=\"-104\" r=\"9.5\" fill=\"#DDAA82\"/><circle cx=\"0\" cy=\"-236\" r=\"47\" fill=\"#6E5B36\"/><path d=\"M -47 -236 Q -54 -172 -40 -164 L 40 -164 Q 54 -172 47 -236 Z\" fill=\"#6E5B36\"/><ellipse cx=\"0\" cy=\"-229\" rx=\"29\" ry=\"33\" fill=\"#DDAA82\"/><circle cx=\"-12\" cy=\"-236\" r=\"4.3\" fill=\"#1F2340\"/><circle cx=\"12\" cy=\"-236\" r=\"4.3\" fill=\"#1F2340\"/><path d=\"M -19 -249 L -6 -251\" stroke=\"#3B2A20\" stroke-width=\"3.2\" stroke-linecap=\"round\"/><path d=\"M 6 -251 L 19 -249\" stroke=\"#3B2A20\" stroke-width=\"3.2\" stroke-linecap=\"round\"/><path d=\"M -10 -216 Q 0 -206 10 -216\" fill=\"none\" stroke=\"#7A2E2E\" stroke-width=\"3.6\" stroke-linecap=\"round\"/><circle cx=\"-21\" cy=\"-219\" r=\"5\" fill=\"#F29B9B\" opacity=\".55\"/><circle cx=\"21\" cy=\"-219\" r=\"5\" fill=\"#F29B9B\" opacity=\".55\"/></g></g></svg>"};
+const BASE = 'ses/3-ders/';
+const I = {
+ play: '<svg viewBox="0 0 24 24"><path d="M7 4.5v15l12.5-7.5z" fill="currentColor"/></svg>',
+ stop: '<svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2" fill="currentColor"/></svg>',
+ mic: '<svg viewBox="0 0 24 24"><rect x="9" y="2.5" width="6" height="12" rx="3" fill="currentColor"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>',
+ me: '<svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="4" fill="currentColor"/><path d="M2 20a7 7 0 0 1 14 0z" fill="currentColor"/><path d="M18 7a5 5 0 0 1 0 8M20.5 4.5a8.5 8.5 0 0 1 0 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>',
+ dl: '<svg viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M4 20h16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+ eye: '<svg viewBox="0 0 24 24"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="3.2" fill="currentColor"/></svg>',
+ chat: '<svg viewBox="0 0 24 24"><path d="M4 4h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H9l-5 4v-4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z" fill="currentColor"/></svg>',
+ book: '<svg viewBox="0 0 24 24"><path d="M3 5c3-1.5 6-1.5 9 0v15c-3-1.5-6-1.5-9 0zM21 5c-3-1.5-6-1.5-9 0v15c3-1.5 6-1.5 9 0z" fill="currentColor"/></svg>',
+ key: '<svg viewBox="0 0 24 24"><path d="M4 6h10M4 12h16M4 18h12" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg>',
+ comp: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 4.5l2.5 7.5h-5z" fill="currentColor"/><path d="M12 19.5L9.5 12h5z" fill="currentColor" opacity=".5"/></svg>',
+ L: '<svg viewBox="0 0 24 24"><path d="M20 12H5M11 5l-7 7 7 7" fill="none" stroke="#7C5CFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+ U: '<svg viewBox="0 0 24 24"><path d="M12 20V5M5 11l7-7 7 7" fill="none" stroke="#14B8A6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+ R: '<svg viewBox="0 0 24 24"><path d="M4 12h15M13 5l7 7-7 7" fill="none" stroke="#FF7A59" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+ rose: '<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="#E8FFF9" stroke="#14B8A6" stroke-width="3"/><polygon points="50,8 58,50 50,42 42,50" fill="#E2552F"/><polygon points="50,92 58,50 50,58 42,50" fill="#0E7490"/><polygon points="92,50 50,58 58,50 50,42" fill="#0E7490"/><polygon points="8,50 50,42 42,50 50,58" fill="#0E7490"/><circle cx="50" cy="50" r="5" fill="#fff" stroke="#0E7490" stroke-width="2"/></svg>'
+};
+const $ = (s, r = document) => r.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+function toast(t) { const e = $('#toast'); e.textContent = t; e.classList.add('on'); clearTimeout(e._t); e._t = setTimeout(() => e.classList.remove('on'), 2400); }
+const IND = n => String(n).replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d]);
+
+/* ---------------- audio ---------------- */
+let ctx = null, cur = null, token = 0;
+function unlock() { if (!ctx) { const C = window.AudioContext || window.webkitAudioContext; if (C) ctx = new C(); } if (ctx && ctx.state === 'suspended') ctx.resume(); }
+document.addEventListener('pointerdown', unlock, {capture: true});
+const cache = {};
+function getGroup(g) { if (!cache[g]) cache[g] = loadGroup(g); return cache[g]; }
+async function loadGroup(g) {
+  for (const ext of ['wav', 'mp3', 'm4a']) {
+    try {
+      const r = await fetch(BASE + DATA[g].file + '.' + ext);
+      if (!r.ok) continue;
+      const ab = await r.arrayBuffer(); unlock(); if (!ctx) return null;
+      const buf = await new Promise((res, rej) => { const p = ctx.decodeAudioData(ab, res, rej); if (p && p.then) p.then(res, rej); });
+      const sp = splitBuf(buf, DATA[g].items.length);
+      return {buf, segs: sp ? sp.segs : null, conf: sp ? sp.conf : 0, file: DATA[g].file + '.' + ext, dur: buf.duration};
+    } catch (e) { console.warn(g, ext, e); }
+  }
+  return null;
+}
+/* split one long recording into n parts at the n-1 longest silences */
+function splitBuf(buf, n) {
+  const sr = buf.sampleRate, hop = Math.round(sr * 0.01), ch = buf.numberOfChannels;
+  const m = Math.floor(buf.length / hop), e = new Float32Array(m); let mx = 0;
+  const data = []; for (let c = 0; c < ch; c++) data.push(buf.getChannelData(c));
+  for (let i = 0; i < m; i++) { let s = 0; for (let j = i * hop; j < (i + 1) * hop; j++) { let v = 0; for (const d of data) v += d[j]; v /= ch; s += v * v; } e[i] = Math.sqrt(s / hop); if (e[i] > mx) mx = e[i]; }
+  if (!mx) return null;
+  const thr = mx * 0.05, sil = i => e[i] < thr;
+  let a = 0; while (a < m && sil(a)) a++; let b = m - 1; while (b > a && sil(b)) b--;
+  if (n === 1) return {segs: [[Math.max(0, a - 6) * hop / sr, Math.min(m, b + 10) * hop / sr]], conf: 9};
+  const runs = []; for (let i = a; i <= b;) { if (sil(i)) { let j = i; while (j <= b && sil(j)) j++; runs.push([i, j, j - i]); i = j; } else i++; }
+  const byLen = runs.filter(r => r[2] >= 12).sort((x, y) => y[2] - x[2]);
+  if (byLen.length < n - 1) return null;
+  const chosen = byLen.slice(0, n - 1), rest = byLen[n - 1];
+  const conf = rest ? chosen[n - 2][2] / rest[2] : 9;
+  chosen.sort((x, y) => x[0] - y[0]);
+  const segs = []; let st = a;
+  for (const r of chosen) { segs.push([st, r[0]]); st = r[1]; }
+  segs.push([st, b + 1]);
+  return {segs: segs.map(([s, t]) => [Math.max(0, s - 6) * hop / sr, Math.min(m, t + 10) * hop / sr]), conf};
+}
+function stopAll() { token++; if (cur) { try { cur.onended = null; cur.stop(); } catch (e) {} cur = null; } if ('speechSynthesis' in window) speechSynthesis.cancel(); document.querySelectorAll('.ln.cur').forEach(x => x.classList.remove('cur')); const rp = $('#rp'); if (rp) rp.classList.remove('on'); }
+let arVoice = null;
+function pickVoice() { if (!('speechSynthesis' in window)) return; const vs = speechSynthesis.getVoices(); arVoice = vs.find(v => /^ar(-|_|$)/i.test(v.lang)) || null; }
+if ('speechSynthesis' in window) { pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+function speak(t) {
+  return new Promise(res => {
+    if (!('speechSynthesis' in window)) { toast('Bu cihazda ses yok.'); return setTimeout(res, 500); }
+    const u = new SpeechSynthesisUtterance(t); u.lang = arVoice ? arVoice.lang : 'ar-SA'; if (arVoice) u.voice = arVoice; u.rate = 0.8;
+    let done = false; const fin = () => { if (!done) { done = true; res(); } };
+    u.onend = fin; u.onerror = fin; speechSynthesis.speak(u); setTimeout(fin, 1500 + t.length * 220);
+  });
+}
+async function play(g, i) {
+  if (cur) { try { cur.onended = null; cur.stop(); } catch (e) {} cur = null; }
+  if ('speechSynthesis' in window) speechSynthesis.cancel();
+  unlock();
+  const a = await getGroup(g);
+  if (a && a.segs) {
+    const [s, t] = a.segs[i]; const src = ctx.createBufferSource(); src.buffer = a.buf; src.connect(ctx.destination); cur = src;
+    return new Promise(res => { src.onended = () => { if (cur === src) cur = null; res(); }; src.start(0, s, t - s); });
+  }
+  return speak(DATA[g].items[i].t.replace(/ \/ /g, '، '));
+}
+async function segDur(g, i) { const a = await getGroup(g); if (a && a.segs) return a.segs[i][1] - a.segs[i][0]; return Math.max(1.2, DATA[g].items[i].t.length * 0.085); }
+async function srcChip(g) { const a = await getGroup(g); const el = $('#srcchip'); if (!el) return; if (a && a.segs) { el.className = 'chip ai'; el.textContent = '🔊 Yapay zekâ sesi'; } else { el.className = 'chip dev'; el.textContent = '🔊 Cihaz sesi'; } }
+
+/* ---------------- recording (stays on the device) ---------------- */
+const recs = {}; let mr = null;
+async function toggleRec(key, btn) {
+  if (mr && mr.state === 'recording') { mr.stop(); return; }
+  stopAll();
+  if (!navigator.mediaDevices || !window.MediaRecorder) { toast('Bu tarayıcı ses kaydını desteklemiyor.'); return; }
+  let stream; try { stream = await navigator.mediaDevices.getUserMedia({audio: true}); } catch (e) { toast('Mikrofon izni verilmedi.'); return; }
+  const chunks = []; mr = new MediaRecorder(stream); btn.classList.add('on'); btn.innerHTML = I.stop;
+  mr.ondataavailable = e => { if (e.data.size) chunks.push(e.data); };
+  mr.onstop = () => {
+    stream.getTracks().forEach(t => t.stop()); btn.classList.remove('on'); btn.innerHTML = I.mic;
+    const type = mr.mimeType || 'audio/webm'; const blob = new Blob(chunks, {type});
+    if (recs[key]) URL.revokeObjectURL(recs[key].url);
+    recs[key] = {url: URL.createObjectURL(blob), ext: type.includes('mp4') ? 'm4a' : (type.includes('ogg') ? 'ogg' : 'webm')}; mr = null;
+    renderRec(key); toast('Kaydın hazır: kendi sesini dinle, modelle karşılaştır.');
+  };
+  mr.start(); toast('Kayıt başladı. Bitirmek için tekrar bas.');
+}
+function recCtl(key) { return `<button class="ib mic" title="Kendi sesini kaydet" onclick="toggleRec('${key}', this)">${I.mic}</button><span class="rc" data-rec="${key}">${recBtns(key)}</span>`; }
+function recBtns(key) { const r = recs[key]; if (!r) return ''; return `<button class="ib mine" title="Kendi sesim" onclick="stopAll(); new Audio(recs['${key}'].url).play()">${I.me}</button><a class="ib dl" title="Telefonuma kaydet" href="${r.url}" download="3-ders-${key}.${r.ext}">${I.dl}</a>`; }
+function renderRec(key) { document.querySelectorAll(`[data-rec="${key}"]`).forEach(e => e.innerHTML = recBtns(key)); }
+
+/* ---------------- views ---------------- */
+function hub() {
+  const C = [['d1', '#5B3FD1', I.chat, 'اَلْحِوَارُ الْأَوَّلُ', '1. Diyalog · dinle, rol yap'], ['d2', '#E2552F', I.chat, 'اَلْحِوَارُ الثَّانِي', '2. Diyalog · dinle, rol yap'],
+             ['kelimeler', '#0F766E', I.book, 'اَلْمُفْرَدَاتُ', 'Kelimeler · kart, dinle-seç, eşleştir'], ['kaliplar', '#B7791F', I.key, 'اَلتَّرَاكِيبُ', 'Kalıplar · dinle ve cevapla'],
+             ['yonler', '#0E7490', I.comp, 'اَلْجِهَاتُ', 'Yönler · dinle ve bul']];
+  return `<h1 class="sec"><span class="b">Sesli alıştırmalar</span><span class="a">أَهْلًا وَسَهْلًا!</span></h1>
+  <p class="hint">Kitaptaki karekodlar bu sayfanın bölümlerine açılır. Her cümleyi dinle, sonra mikrofonla kendi sesini kaydedip karşılaştır.</p>
+  <div class="hub">${C.map((c, k) => `<a class="hc${k === 4 ? ' wide' : ''}" href="#${c[0]}"><div class="ic" style="background:${c[1]}">${c[2]}</div><div class="a">${c[3]}</div><div class="b">${c[4]}</div></a>`).join('')}</div>
+  <div class="note"><b>İpucu:</b> Kendi ses kayıtlarını <b>⬇</b> düğmesiyle telefonuna indir ve silme. Dönem sonunda aynı cümleleri yeniden kaydedip gelişimini karşılaştır.</div>`;
+}
+function dialogue(g) {
+  const G = DATA[g], first = G.items[0].s, people = [...new Set(G.items.map(x => x.s))];
+  const rows = G.items.map((it, i) => `<div class="ln ${it.s === first ? 'a' : 'b'}" id="l${i}" data-s="${esc(it.s)}"><div class="av">${AV[it.s]}</div>
+    <div class="bb" onclick="this.classList.toggle('show')"><span class="who">${it.s}</span><span class="tx" dir="rtl">${it.t}</span>
+    <div class="ctl" onclick="event.stopPropagation()"><button class="ib pl" title="Dinle" onclick="playLine('${g}', ${i})">${I.play}</button>${recCtl(g + '-' + String(i + 1).padStart(2, '0'))}</div></div></div>`).join('');
+  return `<h1 class="sec"><span class="b">${g === 'd1' ? '1. Diyalog' : '2. Diyalog'} · ${G.sub}</span><span class="a">${G.title}</span></h1>
+  <p class="hint">Önce metne bakmadan dinle (<b>Metni gizle</b>). Sonra her cümleyi dinleyip tekrar et ve kaydet. <b>Rol yap</b>: bir kişiyi seç; onun cümleleri gelince sen söyle, ardından doğrusunu dinle.</p>
+  <div class="bar"><button class="btn p" onclick="playAll('${g}')">${I.play} Tümünü dinle</button><button class="btn" id="hidebtn" onclick="toggleHide()">${I.eye} Metni gizle</button>
+  ${people.map(p => `<button class="btn t" onclick="rolePlay('${g}', '${esc(p)}')">${I.mic} Rol yap: ${p}</button>`).join('')}
+  <button class="btn" onclick="stopAll()">${I.stop} Durdur</button><span class="chip" id="srcchip">🔊</span></div>
+  <div class="rp" id="rp"><span id="rpt">Sıra sende!</span><span class="pb"><i id="rpb"></i></span></div>
+  <div class="dlg" id="dlg">${rows}</div>`;
+}
+function toggleHide() { const d = $('#dlg'); d.classList.toggle('hide'); $('#hidebtn').classList.toggle('on'); }
+async function playLine(g, i) { stopAll(); const t = token; const el = $('#l' + i); el && el.classList.add('cur'); await play(g, i); if (t === token && el) el.classList.remove('cur'); }
+async function playAll(g) {
+  stopAll(); const t = token;
+  for (let i = 0; i < DATA[g].items.length; i++) { if (t !== token) return; const el = $('#l' + i); el.classList.add('cur'); el.scrollIntoView({block: 'center', behavior: 'smooth'}); await play(g, i); el.classList.remove('cur'); await sleep(350); }
+}
+async function rolePlay(g, me) {
+  stopAll(); const t = token; const rp = $('#rp'), rpt = $('#rpt'), rpb = $('#rpb');
+  document.querySelectorAll('.ln').forEach(x => x.classList.toggle('me', x.dataset.s === me));
+  for (let i = 0; i < DATA[g].items.length; i++) {
+    if (t !== token) return; const el = $('#l' + i); el.classList.add('cur'); el.scrollIntoView({block: 'center', behavior: 'smooth'});
+    if (DATA[g].items[i].s === me) {
+      const d = (await segDur(g, i)) * 1.7 + 1.2; rp.classList.add('on'); rpt.textContent = 'Sıra sende! Cümleyi söyle.'; rpb.style.transition = 'none'; rpb.style.width = '0';
+      await sleep(30); rpb.style.transition = `width ${d}s linear`; rpb.style.width = '100%'; await sleep(d * 1000);
+      if (t !== token) return; rpt.textContent = 'Doğrusunu dinle…'; await play(g, i); rp.classList.remove('on');
+    } else await play(g, i);
+    el.classList.remove('cur'); await sleep(400);
+  }
+  document.querySelectorAll('.ln').forEach(x => x.classList.remove('me')); toast('Tebrikler! Şimdi rolleri değiştir.');
+}
+/* vocab */
+let vmode = 'kart';
+function vocab() {
+  const M = [['kart', 'Kartlar'], ['dinle', 'Dinle ve seç'], ['anlam', 'Anlamını bul'], ['eslestir', 'Eşleştir']];
+  return `<h1 class="sec"><span class="b">Kelimeler · 24 kelime</span><span class="a">اَلْمُفْرَدَاتُ</span></h1>
+  <p class="hint">Karta dokun: kelimeyi duy. <b>TR</b> ile Türkçesini gör. ★ işaretliler ezber hedefidir.</p>
+  <div class="modes">${M.map(m => `<button class="${vmode === m[0] ? 'on' : ''}" onclick="vmode='${m[0]}'; route()">${m[1]}</button>`).join('')}<span class="chip" id="srcchip">🔊</span></div><div id="vz"></div>`;
+}
+function vcards() {
+  return '<div class="vg">' + DATA.kelimeler.items.map((w, i) => `<div class="vc${w.st ? ' st' : ''}" id="v${i}" onclick="vtap(${i})"><span class="no">${IND(i + 1)}</span>${w.st ? '<span class="star">★</span>' : ''}
+   <div class="fr"><div class="w${w.t.length > 14 ? ' sm' : ''}">${w.t}</div>${w.mz ? `<div class="mz">${w.mz}</div>` : ''}<span class="rt">${w.rt}</span></div>
+   <div class="bk" style="display:none"><div class="tr">${esc(w.tr)}</div></div><span class="fl" onclick="event.stopPropagation(); vflip(${i})">TR</span></div>`).join('') + '</div>';
+}
+function vtap(i) { stopAll(); play('kelimeler', i); }
+function vflip(i) { const c = $('#v' + i), f = $('.fr', c), b = $('.bk', c); const bk = b.style.display === 'none'; b.style.display = bk ? '' : 'none'; f.style.display = bk ? 'none' : ''; c.classList.toggle('back', bk); }
+let Q = null;
+function newQuiz(kind) { const idx = shuffle([...DATA.kelimeler.items.keys()]).slice(0, 10); Q = {kind, idx, k: 0, score: 0, locked: false}; drawQuiz(); }
+function drawQuiz() {
+  const z = $('#vz'), W = DATA.kelimeler.items;
+  if (Q.k >= Q.idx.length) { z.innerHTML = `<div class="qz"><div class="score">${Q.score} / ${Q.idx.length}</div><p class="hint">${Q.score >= 8 ? 'Harika! 🎉' : 'Kartlara dönüp yeniden dene.'}</p><button class="btn p" onclick="newQuiz('${Q.kind}')">Yeniden</button></div>`; return; }
+  const i = Q.idx[Q.k], opts = shuffle([i, ...shuffle([...W.keys()].filter(x => x !== i)).slice(0, 3)]);
+  const head = `<div class="top"><span>Soru ${Q.k + 1} / ${Q.idx.length}</span><span>Puan: ${Q.score}</span></div>`;
+  if (Q.kind === 'dinle') z.innerHTML = `<div class="qz">${head}<button class="bigplay" onclick="play('kelimeler', ${i})">${I.play}</button><p class="hint">Dinle ve duyduğun kelimeyi seç.</p><div class="opts">${opts.map(o => `<button class="opt ar" data-o="${o}" onclick="answer(this, ${o === i})">${W[o].t}</button>`).join('')}</div></div>`;
+  else z.innerHTML = `<div class="qz">${head}<div class="big" onclick="play('kelimeler', ${i})">${W[i].t}</div><p class="hint">Kelimeye dokun, dinle. Türkçesini seç.</p><div class="opts">${opts.map(o => `<button class="opt" data-o="${o}" onclick="answer(this, ${o === i})">${esc(W[o].tr)}</button>`).join('')}</div></div>`;
+  Q.locked = false; setTimeout(() => play('kelimeler', i), 350);
+}
+async function answer(btn, ok) {
+  if (Q.locked) return; Q.locked = true;
+  const i = Q.idx[Q.k];
+  if (ok) { btn.classList.add('ok'); Q.score++; } else { btn.classList.add('no'); document.querySelectorAll('.opt').forEach(b => { if (+b.dataset.o === i) b.classList.add('ok'); }); }
+  await play('kelimeler', i); await sleep(ok ? 450 : 900); Q.k++; drawQuiz();
+}
+let MT = null;
+function newMatch() {
+  const idx = shuffle([...DATA.kelimeler.items.keys()]).slice(0, 6); MT = {idx, sel: null, done: 0};
+  const W = DATA.kelimeler.items;
+  $('#vz').innerHTML = `<div class="qz"><p class="hint">Arapça kelimeye dokun (duyarsın), sonra Türkçesini seç.</p><div class="mt"><div class="col">${shuffle(idx).map(i => `<button data-i="${i}" data-k="t" onclick="mpick(this)">${esc(W[i].tr)}</button>`).join('')}</div>
+    <div class="col">${idx.map(i => `<button class="ar" data-i="${i}" data-k="a" onclick="mpick(this)">${W[i].t}</button>`).join('')}</div></div><div class="score" id="mts"></div></div>`;
+}
+function mpick(b) {
+  if (b.dataset.k === 'a') play('kelimeler', +b.dataset.i);
+  if (!MT.sel || MT.sel.dataset.k === b.dataset.k) { document.querySelectorAll('.mt button.sel').forEach(x => x.classList.remove('sel')); b.classList.add('sel'); MT.sel = b; return; }
+  if (MT.sel.dataset.i === b.dataset.i) { [MT.sel, b].forEach(x => { x.classList.remove('sel'); x.classList.add('done'); }); MT.done++; if (MT.done === 6) $('#mts').innerHTML = `Tamam! 🎉 <button class="btn p" onclick="newMatch()">Yeni tur</button>`; }
+  else { const a = MT.sel; [a, b].forEach(x => x.classList.add('no')); setTimeout(() => [a, b].forEach(x => x.classList.remove('no', 'sel')), 600); }
+  MT.sel = null;
+}
+/* patterns */
+function patterns() {
+  const K = DATA.kaliplar.items; let h = '';
+  for (let p = 0; p < K.length / 2; p++) {
+    const q = K[2 * p], a = K[2 * p + 1];
+    h += `<div class="kp"><div class="row q"><span class="ix">${IND(p + 1)}</span><div class="av">${AV[q.s]}</div><div class="tx">${q.t}</div><div class="ctl"><button class="ib pl" onclick="stopAll(); play('kaliplar', ${2 * p})">${I.play}</button></div></div>
+      <div class="row a"><span class="ix" style="visibility:hidden"></span><div class="av">${AV[a.s]}</div><div class="tx">${a.t}</div><div class="ctl"><button class="ib pl" onclick="stopAll(); play('kaliplar', ${2 * p + 1})">${I.play}</button>${recCtl('kalip-' + String(p + 1).padStart(2, '0'))}</div></div></div>`;
+  }
+  return `<h1 class="sec"><span class="b">Kalıplar · 9 soru-cevap</span><span class="a">اَلتَّرَاكِيبُ</span></h1>
+  <p class="hint">Soruyu dinle, cevabı seç; sonra cevabı kendin söyle ve kaydet.</p>
+  <div class="bar"><button class="btn y" onclick="newKQ()">${I.play} Dinle ve cevapla</button><button class="btn" onclick="stopAll(); $('#kz').innerHTML=''">Listeye dön</button><span class="chip" id="srcchip">🔊</span></div>
+  <div id="kz"></div><div id="kl">${h}</div>`;
+}
+let KQ = null;
+function newKQ() { KQ = {order: shuffle([...Array(9).keys()]), k: 0, score: 0, locked: false}; $('#kl').style.display = 'none'; drawKQ(); }
+function drawKQ() {
+  const K = DATA.kaliplar.items, z = $('#kz');
+  if (KQ.k >= 9) { z.innerHTML = `<div class="qz"><div class="score">${KQ.score} / 9</div><button class="btn p" onclick="newKQ()">Yeniden</button> <button class="btn" onclick="$('#kz').innerHTML=''; $('#kl').style.display=''">Listeye dön</button></div>`; return; }
+  const p = KQ.order[KQ.k], opts = shuffle([p, ...shuffle([...Array(9).keys()].filter(x => x !== p)).slice(0, 2)]);
+  z.innerHTML = `<div class="qz"><div class="top"><span>Soru ${KQ.k + 1} / 9</span><span>Puan: ${KQ.score}</span></div>
+    <button class="bigplay" onclick="play('kaliplar', ${2 * p})">${I.play}</button><div class="big" style="font-size:30px">${K[2 * p].t}</div>
+    <div class="opts" style="grid-template-columns:1fr">${opts.map(o => `<button class="opt ar" data-o="${o}" onclick="kans(this, ${o === p})">${K[2 * o + 1].t}</button>`).join('')}</div>
+    <div class="bar" id="kafter" style="display:none;justify-content:center"><span class="hint" style="margin:0">Şimdi cevabı sen söyle:</span>${recCtl('kalip-' + String(p + 1).padStart(2, '0'))}<button class="btn p" onclick="KQ.k++; drawKQ()">Sonraki ›</button></div></div>`;
+  KQ.locked = false; setTimeout(() => play('kaliplar', 2 * p), 350);
+}
+async function kans(btn, ok) {
+  if (KQ.locked) return; KQ.locked = true; const p = KQ.order[KQ.k];
+  if (ok) { btn.classList.add('ok'); KQ.score++; } else { btn.classList.add('no'); document.querySelectorAll('.opt').forEach(b => { if (+b.dataset.o === p) b.classList.add('ok'); }); }
+  await play('kaliplar', 2 * p + 1); $('#kafter').style.display = 'flex';
+}
+/* directions */
+let YQ = null;
+function directions() {
+  const Y = DATA.yonler.items, at = k => Y.findIndex(x => x.k === k);
+  const cell = (k, d, t) => { const i = at(k); return `<button data-k="${k}" onclick="ytap('${k}')"><div class="d">${d}</div><div class="t">${t}</div><div class="c">${Y[i].c}</div></button>`; };
+  return `<h1 class="sec"><span class="b">Yönler · Türkiye pusulası</span><span class="a">اَلْجِهَاتُ</span></h1>
+  <p class="hint"><b>Keşfet:</b> bir yöne dokun, cümleyi duy. <b>Dinle ve bul:</b> duyduğun cümleye uyan yönü ya da oku seç.</p>
+  <div class="bar"><button class="btn y" onclick="newYQ()">${I.play} Dinle ve bul</button><button class="btn" onclick="YQ=null; $('#yq').innerHTML=''">Keşfet</button><span class="chip" id="srcchip">🔊</span></div>
+  <div id="yq"></div>
+  <div class="cmp"><span></span>${cell('n', 'شَمَالٌ', 'KUZEY')}<span></span>${cell('w', 'غَرْبٌ', 'BATI')}
+   <button data-k="c" onclick="ytap('c')"><div class="rose">${I.rose}</div><div class="c">${Y[at('c')].c}</div></button>${cell('e', 'شَرْقٌ', 'DOĞU')}<span></span>${cell('s', 'جَنُوبٌ', 'GÜNEY')}<span></span></div>
+  <div class="arrs"><button data-k="L" onclick="ytap('L')">${I.L}<div class="a">عَلَى الْيَسَارِ</div></button><button data-k="U" onclick="ytap('U')">${I.U}<div class="a">مُسْتَقِيمًا</div></button><button data-k="R" onclick="ytap('R')">${I.R}<div class="a">عَلَى الْيَمِينِ</div></button></div>`;
+}
+function newYQ() { YQ = {order: shuffle([...DATA.yonler.items.keys()]), k: 0, score: 0, locked: false}; drawYQ(); }
+function drawYQ() {
+  document.querySelectorAll('.cmp button, .arrs button').forEach(b => b.classList.remove('ok', 'no'));
+  if (YQ.k >= YQ.order.length) { $('#yq').innerHTML = `<div class="qz" style="margin-bottom:12px"><div class="score">${YQ.score} / ${YQ.order.length}</div><button class="btn p" onclick="newYQ()">Yeniden</button></div>`; YQ = null; return; }
+  $('#yq').innerHTML = `<div class="qz" style="margin-bottom:12px"><div class="top"><span>${YQ.k + 1} / ${YQ.order.length}</span><span>Puan: ${YQ.score}</span></div><button class="bigplay" onclick="play('yonler', ${YQ.order[YQ.k]})">${I.play}</button><p class="hint">Dinle ve aşağıda doğru yere dokun.</p></div>`;
+  YQ.locked = false; setTimeout(() => play('yonler', YQ.order[YQ.k]), 350);
+}
+async function ytap(k) {
+  const Y = DATA.yonler.items, i = Y.findIndex(x => x.k === k);
+  if (!YQ) { stopAll(); play('yonler', i); return; }
+  if (YQ.locked) return; YQ.locked = true; const want = Y[YQ.order[YQ.k]].k;
+  const btn = document.querySelector(`[data-k="${k}"]`);
+  if (k === want) { btn.classList.add('ok'); YQ.score++; } else { btn.classList.add('no'); document.querySelector(`[data-k="${want}"]`).classList.add('ok'); }
+  await play('yonler', YQ.order[YQ.k]); await sleep(600); YQ.k++; drawYQ();
+}
+/* teacher check */
+function check() {
+  return `<h1 class="sec"><span class="b">Öğretmen kontrolü</span><span class="a">اَلتَّحَقُّقُ</span></h1>
+  <p class="hint">Yüklenen ses dosyaları otomatik olarak cümlelere bölünür. Her satırı dinleyin: bir cümle ikiye bölünmüşse ya da iki cümle birleşmişse, metni duraklamayı uzatarak AI Studio'da yeniden üretin. Hareke ve i'rab sonlarını da kontrol edin.</p><div id="kts"></div>`;
+}
+async function fillCheck() {
+  const box = $('#kts'); box.innerHTML = '';
+  for (const g of Object.keys(DATA)) {
+    const G = DATA[g], d = document.createElement('div'); d.className = 'kt'; box.appendChild(d);
+    d.innerHTML = `<h3><span>${G.sub} · ${G.items.length} satır</span><span>ses/3-ders/${G.file}.wav</span></h3><div class="st">yükleniyor…</div>`;
+    const a = await getGroup(g); let st;
+    if (!a) st = '<b class="bad">Dosya bulunamadı</b>: cihaz sesi kullanılıyor.';
+    else if (!a.segs) st = `<b class="bad">${a.file} bulundu ama ${G.items.length} parçaya bölünemedi.</b> Satırlar arası duraklamayı uzatın.`;
+    else st = `${a.file} · ${a.dur.toFixed(1)} sn · ${a.segs.length} parça · ` + (a.conf >= 1.4 ? '<b class="good">bölme güvenilir</b>' : '<b class="warn">bölme şüpheli, dinleyerek kontrol edin</b>');
+    $('.st', d).innerHTML = st;
+    d.innerHTML += G.items.map((it, i) => `<div class="it"><button class="ib pl" onclick="stopAll(); play('${g}', ${i})">${I.play}</button><span class="tm">${a && a.segs ? a.segs[i][0].toFixed(2) + '–' + a.segs[i][1].toFixed(2) : '—'}</span><span class="tx">${it.n ? '<small>' + it.n + ':</small> ' : ''}${it.t}</span></div>`).join('');
+  }
+}
+/* router */
+function route() {
+  stopAll(); const r = location.hash.replace('#', '');
+  document.querySelectorAll('#tabs a').forEach(a => a.classList.toggle('on', a.dataset.r === r));
+  const app = $('#app');
+  if (r === 'd1' || r === 'd2') { app.innerHTML = dialogue(r); srcChip(r); }
+  else if (r === 'kelimeler') { app.innerHTML = vocab(); srcChip('kelimeler'); if (vmode === 'kart') $('#vz').innerHTML = vcards(); else if (vmode === 'eslestir') newMatch(); else newQuiz(vmode); }
+  else if (r === 'kaliplar') { app.innerHTML = patterns(); srcChip('kaliplar'); }
+  else if (r === 'yonler') { app.innerHTML = directions(); srcChip('yonler'); }
+  else if (r === 'kontrol') { app.innerHTML = check(); fillCheck(); }
+  else app.innerHTML = hub();
+  window.scrollTo(0, 0);
+}
+window.addEventListener('hashchange', route); route();
+</script>
+</body>
+</html>

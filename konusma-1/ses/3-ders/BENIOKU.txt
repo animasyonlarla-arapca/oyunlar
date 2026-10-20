@@ -1,0 +1,8 @@
+Bu klasöre şu dosyaları yükleyin (.wav ya da .mp3):
+  diyalog-1.wav
+  diyalog-2.wav
+  kelimeler.wav
+  kaliplar.wav
+  yonler.wav
+
+Ayrıntı: SES_REHBERI.txt
