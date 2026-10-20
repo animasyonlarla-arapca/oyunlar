@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Konuşma III · 4. Ders · Dinleme</title>
+<meta name="author" content="Dr. Ömer Faruk Karakuş">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root { --navy:#26305C; --pur:#5B3FD1; --pur2:#7C5CFF; --cor:#FF7A59; --red:#E2552F; --tea:#14B8A6; --tea2:#0F766E; --yel:#FFC93C; --ink:#1F2340; --mut:#6B6688; --bg:#FBFAFF; --line:#E1DCF5 }
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent }
+body { font-family: 'Nunito', system-ui, sans-serif; color: var(--ink); background: var(--bg); min-height: 100vh }
+button { font: inherit; color: inherit; border: 0; background: none; cursor: pointer }
+header.top { background: var(--navy); color: #fff; box-shadow: 0 2px 10px rgba(0,0,0,.15) }
+.hd { max-width: 780px; margin: 0 auto; padding: 10px 16px; display: flex; align-items: center; gap: 10px; direction: ltr }
+.mono { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--pur), var(--pur2)); color: var(--yel); display: flex; align-items: center; justify-content: center; font-family: "Amiri"; font-weight: 700; font-size: 12.5px; white-space: nowrap; flex: none; direction: rtl }
+.hd .t1 { font-size: 11px; letter-spacing: .08em; opacity: .75; font-weight: 800 }
+.hd .t2 { font-size: 13px; font-weight: 800; color: var(--yel) }
+.hd .ttl { margin-left: auto; font-family: 'Amiri'; font-size: 22px; font-weight: 700; direction: rtl }
+.wrap { max-width: 780px; margin: 0 auto; padding: 0 16px 30px }
+h1 { font-family: 'Amiri'; font-size: 30px; font-weight: 700; color: var(--pur); line-height: 1.35; margin: 20px 0 2px }
+p.hint { font-family: 'Amiri'; font-size: 19px; color: var(--mut); line-height: 1.6; margin-bottom: 14px }
+.card { background: #fff; border: 2.5px solid var(--navy); border-radius: 16px; box-shadow: 3px 3px 0 var(--navy); padding: 14px }
+.card .lb { font-family: 'Amiri'; font-size: 21px; font-weight: 700; color: var(--navy); margin-bottom: 8px }
+audio { width: 100%; display: block; direction: ltr }
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 14px }
+.pb { display: flex; align-items: center; justify-content: center; gap: 8px; background: #fff; border: 2.5px solid var(--navy); border-radius: 14px; box-shadow: 2px 2px 0 var(--navy); padding: 10px 6px; font-family: 'Amiri'; font-size: 20px; font-weight: 700; color: var(--navy); transition: background .15s, transform .15s }
+.pb:active { transform: translate(2px, 2px); box-shadow: none }
+.pb svg { width: 18px; height: 18px; flex: none; fill: var(--cor) }
+.pb.on { background: var(--yel); transform: scale(1.03) }
+.err { margin-top: 12px; font-family: 'Amiri'; font-size: 18px; color: var(--red) }
+footer { text-align: center; font-size: 11.5px; color: var(--mut); padding: 22px 16px 30px; line-height: 1.6; direction: ltr }
+footer .ar { font-family: 'Amiri'; font-size: 13px; direction: rtl; unicode-bidi: isolate }
+@media (max-width: 520px) { .hd .ttl { font-size: 18px } .grid { grid-template-columns: repeat(2, 1fr) } h1 { font-size: 26px } }
+</style>
+</head>
+<body>
+<header class="top">
+ <div class="hd"><span class="mono">ع ف ك</span><div><div class="t1">ARAPÇA KONUŞMA III · 4. DERS</div><div class="t2">Dr. Ömer Faruk Karakuş</div></div><div class="ttl">يَوْمٌ لَا أَنْسَاهُ</div></div>
+</header>
+<main class="wrap">
+ <h1>اِسْتَمِعْ: فِي عُطْلَةٍ مَعَ الْجَدَّةِ</h1>
+ <p class="hint">اِسْتَمِعْ إِلَى الْقِصَّةِ كَامِلَةً، أَوْ فِقْرَةً فِقْرَةً.</p>
+ <div class="card">
+  <div class="lb">اَلْقِصَّةُ كَامِلَةً</div>
+  <audio id="au" src="ses/4-ders/dinleme.mp3" controls preload="metadata"></audio>
+  <div class="grid" id="grid"></div>
+  <div class="err" id="err" hidden>تَعَذَّرَ تَحْمِيلُ الصَّوْتِ.</div>
+ </div>
+</main>
+<footer>© 2026 Dr. Ömer Faruk Karakuş · Atatürk Üniversitesi, Arap Dili ve Edebiyatı Bölümü<br>
+Seslendirme yapay zekâ ile üretilmiştir (Google AI Studio, Gemini TTS).<br>
+Metin: Violet Otieno, <span class="ar">«في عطلة مع الجدة»</span> (Holidays with grandmother), Arapçaya çeviren Maaouia Haj Mabrouk, Global Storybooks (Storybooks Arabic), hikâye no. 0243, CC BY 4.0. Metin kısaltıldı, düzeltildi ve harekelendi, çocukların adları değiştirildi.</footer>
+<script>
+// Paragrafların kayıttaki yeri (saniye). Paragraflar arasında 3 saniyelik sessizlik var.
+const SEG = [[0.53, 26.61], [28.8, 49.57], [51.76, 75.29], [77.51, 92.27], [94.49, 113.22], [115.43, 157.28]];
+const NUM = ['١', '٢', '٣', '٤', '٥', '٦'];
+const PLAY = '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
+const au = document.getElementById('au');
+const grid = document.getElementById('grid');
+grid.innerHTML = SEG.map((s, i) => `<button class="pb" data-i="${i}">${PLAY}<span>اَلْفِقْرَةُ ${NUM[i]}</span></button>`).join('');
+const btns = Array.from(grid.querySelectorAll('.pb'));
+let stopAt = null;
+function mark(i) { btns.forEach((b, k) => b.classList.toggle('on', k === i)); }
+function which(t) { return SEG.findIndex(([s, e]) => t >= s && t < e); }
+function playSeg(i) {
+  const go = () => { stopAt = SEG[i][1]; au.currentTime = SEG[i][0]; au.play(); };
+  if (au.readyState < 1) { au.addEventListener('loadedmetadata', go, { once: true }); au.load(); } else go();
+}
+btns.forEach((b, i) => b.addEventListener('click', () => playSeg(i)));
+au.addEventListener('timeupdate', () => {
+  if (stopAt !== null && au.currentTime >= stopAt) au.pause();
+  mark(au.paused ? -1 : which(au.currentTime));
+});
+au.addEventListener('pause', () => { stopAt = null; mark(-1); });
+au.addEventListener('ended', () => { stopAt = null; mark(-1); });
+au.addEventListener('error', () => { document.getElementById('err').hidden = false; });
+</script>
+</body>
+</html>
